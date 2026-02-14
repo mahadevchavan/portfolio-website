@@ -1,6 +1,6 @@
 # Python bytecode / cache
 __pycache__/
-**/__pycache__/
+portfolio_venv/
 *.py[cod]
 *$py.class
 # Optional: pytest cache
