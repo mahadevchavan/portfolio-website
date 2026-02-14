@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-16">
+  <div class="max-w-5xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-gray-800 text-center">About Me</h1>
+    
+    <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+      <div class="flex flex-col md:flex-row items-center mb-8">
+        <div class="w-48 h-48 bg-gradient-to-br from-green-600 to-blue-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mb-4 md:mb-0 md:mr-8 shadow-lg">
+          MC
+        </div>
+        <div class="text-center md:text-left">
+          <h2 class="text-3xl font-bold text-gray-800 mb-2">Mahadev Chavan</h2>
+          <p class="text-xl text-green-600 mb-4">Data Science Engineer</p>
+          <p class="text-gray-600 mb-2">Machine Learning | Deep Learning | Generative AI</p>
+          <p class="text-gray-600 mb-4">Passionate about building intelligent systems and pushing the boundaries of AI</p>
+          <div class="flex gap-3 justify-center md:justify-start">
+            <a href="https://www.linkedin.com/in/mahadev-chavan/" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-300">
+              <i class="fab fa-linkedin-in"></i>
+              <span class="font-semibold">LinkedIn</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-2xl font-bold text-gray-800 mb-4">Technical Skills</h3>
+        <div class="space-y-3">
+          <div>
+            <h4 class="font-semibold text-gray-800 mb-2">Programming Languages</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Python</span>
+              <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">R</span>
+              <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">SQL</span>
+              <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Scala</span>
+            </div>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-800 mb-2">ML/DL Frameworks</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">TensorFlow</span>
+              <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">PyTorch</span>
+              <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Keras</span>
+              <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Scikit-learn</span>
+            </div>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-800 mb-2">Generative AI</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Transformers</span>
+              <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Hugging Face</span>
+              <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">LangChain</span>
+              <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">OpenAI API</span>
+            </div>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-800 mb-2">Tools & Technologies</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">Docker</span>
+              <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">Kubernetes</span>
+              <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">MLflow</span>
+              <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">Airflow</span>
+              <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">AWS/GCP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-2xl font-bold text-gray-800 mb-4">Professional Experience</h3>
+        <div class="space-y-4">
+          <div>
+            <h4 class="font-bold text-gray-800">Data Science Engineer</h4>
+            <p class="text-green-600 text-sm">KSAL India Limited, Pune | April 2024 - Present</p>
+            <p class="text-gray-500 text-xs mb-1">Hybrid Mode • ~1.5 years</p>
+            <p class="text-gray-600 text-sm mt-1">Developing and deploying machine learning models and AI solutions. Working on end-to-end ML pipelines, model optimization, and production-grade AI systems.</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-800">Training Engineer</h4>
+            <p class="text-green-600 text-sm">Neosoft Technologies | May 2022 - January 2023</p>
+            <p class="text-gray-500 text-xs mb-1">~9 months</p>
+            <p class="text-gray-600 text-sm mt-1">Conducted technical training sessions and workshops. Developed training materials and curriculum for data science and machine learning topics.</p>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-gray-200">
+          <p class="text-sm text-gray-600"><span class="font-semibold">Total Experience:</span> ~2.5 years in Data Science and Machine Learning</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-2xl font-bold text-gray-800 mb-4">Core Expertise</h3>
+        <ul class="space-y-2">
+          <li class="flex items-center">
+            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+            <span>Neural Networks & Deep Learning Architectures</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+            <span>Large Language Models (LLMs) & Fine-tuning</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+            <span>Computer Vision & Image Generation</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+            <span>Natural Language Processing (NLP)</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+            <span>Model Training, Optimization & MLOps</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+            <span>Production ML System Design</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-2xl font-bold text-gray-800 mb-4">Education</h3>
+        <div class="space-y-4">
+          <div>
+            <h4 class="font-bold text-gray-800">Master of Science in Data Science</h4>
+            <p class="text-green-600 text-sm">University Name | 2015 - 2017</p>
+            <p class="text-gray-600 text-sm mt-1">Specialization in Machine Learning and AI</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-800">Bachelor of Science in Computer Science</h4>
+            <p class="text-green-600 text-sm">University Name | 2011 - 2015</p>
+            <p class="text-gray-600 text-sm mt-1">Graduated with honors, Focus on AI and Algorithms</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications Section -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Certifications</h3>
+      <div class="space-y-4">
+        <div class="border-l-4 border-green-500 pl-4 py-2">
+          <h4 class="font-bold text-gray-800">Certification Name 1</h4>
+          <p class="text-green-600 text-sm">Issuing Organization</p>
+          <p class="text-gray-500 text-xs mt-1">Issue Date • Credential ID (if applicable)</p>
+        </div>
+        <div class="border-l-4 border-green-500 pl-4 py-2">
+          <h4 class="font-bold text-gray-800">Certification Name 2</h4>
+          <p class="text-green-600 text-sm">Issuing Organization</p>
+          <p class="text-gray-500 text-xs mt-1">Issue Date • Credential ID (if applicable)</p>
+        </div>
+        <div class="border-l-4 border-green-500 pl-4 py-2">
+          <h4 class="font-bold text-gray-800">Certification Name 3</h4>
+          <p class="text-green-600 text-sm">Issuing Organization</p>
+          <p class="text-gray-500 text-xs mt-1">Issue Date • Credential ID (if applicable)</p>
+        </div>
+      </div>
+      <div class="mt-4 pt-4 border-t border-gray-200">
+        <p class="text-sm text-gray-600">
+          <i class="fab fa-linkedin text-blue-600 mr-2"></i>
+          View all certifications on my 
+          <a href="https://www.linkedin.com/in/mahadev-chavan/" target="_blank" rel="noopener noreferrer" 
+             class="text-blue-600 hover:text-blue-700 font-semibold">LinkedIn profile</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-16">
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-gray-800 text-center">Get In Touch</h1>
+    <p class="text-center text-gray-600 mb-12">I'd love to hear from you! Send me a message and I'll respond as soon as possible.</p>
+    
+    <!-- Success Message -->
+    {% if success %}
+    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg" role="alert">
+      <div class="flex items-center">
+        <i class="fas fa-check-circle text-2xl mr-3"></i>
+        <p class="font-semibold">{{ success }}</p>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Error Message -->
+    {% if error %}
+    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg" role="alert">
+      <div class="flex items-center">
+        <i class="fas fa-times-circle text-2xl mr-3"></i>
+        <p class="font-semibold">{{ error }}</p>
+      </div>
+    </div>
+    {% endif %}
+    
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <form method="POST" action="/contact" class="space-y-6" id="contactForm">
+        <div>
+          <label for="name" class="block text-gray-700 font-semibold mb-2">Name <span class="text-red-500">*</span></label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            required
+            minlength="2"
+            maxlength="100"
+            value="{{ form_data.name if form_data else '' }}"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+            placeholder="Your Name"
+          >
+          <p class="text-sm text-gray-500 mt-1">Must be at least 2 characters</p>
+        </div>
+
+        <div>
+          <label for="email" class="block text-gray-700 font-semibold mb-2">Email <span class="text-red-500">*</span></label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required
+            value="{{ form_data.email if form_data else '' }}"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+            placeholder="your.email@example.com"
+          >
+          <p class="text-sm text-gray-500 mt-1">We'll use this to reply to you</p>
+        </div>
+
+        <div>
+          <label for="subject" class="block text-gray-700 font-semibold mb-2">Subject <span class="text-red-500">*</span></label>
+          <input 
+            type="text" 
+            id="subject" 
+            name="subject" 
+            required
+            minlength="3"
+            maxlength="200"
+            value="{{ form_data.subject if form_data else '' }}"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+            placeholder="What's this about?"
+          >
+          <p class="text-sm text-gray-500 mt-1">Brief description of your inquiry</p>
+        </div>
+
+        <div>
+          <label for="message" class="block text-gray-700 font-semibold mb-2">Message <span class="text-red-500">*</span></label>
+          <textarea 
+            id="message" 
+            name="message" 
+            rows="6" 
+            required
+            minlength="10"
+            maxlength="5000"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+            placeholder="Your message here..."
+          >{{ form_data.message if form_data else '' }}</textarea>
+          <p class="text-sm text-gray-500 mt-1">Must be at least 10 characters ({{ form_data.message|length if form_data and form_data.message else 0 }}/5000)</p>
+        </div>
+
+        <button 
+          type="submit" 
+          id="submitBtn"
+          class="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300 font-semibold text-lg disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          <span id="submitText">Send Message</span>
+          <span id="submitLoading" class="hidden">Sending...</span>
+        </button>
+      </form>
+    </div>
+
+    <script>
+      // Form validation and submission handling
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const submitLoading = document.getElementById('submitLoading');
+        
+        // Disable button and show loading
+        submitBtn.disabled = true;
+        submitText.classList.add('hidden');
+        submitLoading.classList.remove('hidden');
+        
+        // Re-enable after 5 seconds in case of error (fallback)
+        setTimeout(() => {
+          submitBtn.disabled = false;
+          submitText.classList.remove('hidden');
+          submitLoading.classList.add('hidden');
+        }, 5000);
+      });
+
+      // Real-time character count for message
+      const messageField = document.getElementById('message');
+      if (messageField) {
+        messageField.addEventListener('input', function() {
+          const charCount = this.value.length;
+          const helpText = this.nextElementSibling;
+          if (helpText) {
+            helpText.textContent = `Must be at least 10 characters (${charCount}/5000)`;
+            if (charCount < 10) {
+              helpText.classList.add('text-red-500');
+              helpText.classList.remove('text-gray-500');
+            } else {
+              helpText.classList.remove('text-red-500');
+              helpText.classList.add('text-gray-500');
+            }
+          }
+        });
+      }
+    </script>
+
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+      <div class="bg-white rounded-lg shadow-lg p-5 flex flex-col items-center justify-center min-h-[180px]">
+        <div class="text-3xl mb-2 text-green-600">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-2 text-sm">Email</h3>
+        <a href="mailto:chmahadev321@gmail.com" class="text-gray-600 text-xs hover:text-green-600 transition duration-300 whitespace-nowrap">
+          chmahadev321@gmail.com
+        </a>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-lg p-5 flex flex-col items-center justify-center min-h-[180px]">
+        <div class="text-3xl mb-2 text-blue-600">
+          <i class="fas fa-phone"></i>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-2 text-sm">Phone</h3>
+        <a href="tel:+918149287361" class="text-gray-600 text-xs hover:text-green-600 transition duration-300 whitespace-nowrap">
+          +91 8149287361
+        </a>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-lg p-5 flex flex-col items-center justify-center min-h-[180px]">
+        <div class="text-3xl mb-2 text-purple-600">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-2 text-sm">Location</h3>
+        <p class="text-gray-600 text-xs whitespace-nowrap">Pune, India</p>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-lg p-5 flex flex-col items-center justify-center min-h-[180px]">
+        <div class="text-3xl mb-2 text-blue-700">
+          <i class="fab fa-linkedin"></i>
+        </div>
+        <h3 class="font-bold text-gray-800 mb-2 text-sm">LinkedIn</h3>
+        <a href="https://www.linkedin.com/in/mahadev-chavan/" target="_blank" rel="noopener noreferrer" 
+           class="text-blue-600 hover:text-blue-700 text-xs font-semibold transition duration-300 whitespace-nowrap">
+          Connect with me →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
