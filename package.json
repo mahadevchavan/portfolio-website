@@ -1,7 +1,0 @@
-{
-  "name": "portfolio-website",
-  "version": "1.0.0",
-  "scripts": {
-    "build": "pip install -r requirements.txt && python render_static.py"
-  }
-}
