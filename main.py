@@ -9,15 +9,17 @@ from email.mime.multipart import MIMEMultipart
 import os
 import re
 from typing import Optional, Tuple
+from dotenv import load_dotenv
+load_dotenv()
 
 app = FastAPI()
 
 # Email configuration - Set these as environment variables or update directly
-SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-SMTP_USERNAME = os.getenv("SMTP_USERNAME", "chmahadev321@gmail.com")  # Your email
-SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")  # Your Gmail App Password (set as environment variable)
-RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL", "chmahadev321@gmail.com")  # Where to receive contact form emails
+SMTP_SERVER = os.getenv("SMTP_SERVER")
+SMTP_PORT = int(os.getenv("SMTP_PORT"))
+SMTP_USERNAME = os.getenv("SMTP_USERNAME")  # Your email
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")  # Your Gmail App Password (set as environment variable)
+RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")  # Where to receive contact form emails
 
 # Serve static files (CSS, JS, images)
 app.mount("/static", StaticFiles(directory="static"), name="static")
