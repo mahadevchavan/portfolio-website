@@ -4,11 +4,11 @@
 <div class="container mx-auto px-4 py-16">
   <div class="max-w-2xl mx-auto">
     <h1 class="text-4xl font-bold mb-8 text-gray-800 text-center">Get In Touch</h1>
-    <p class="text-center text-gray-600 mb-12">I'd love to hear from you! Send me a message and I'll respond as soon as possible.</p>
+    <p class="text-center text-gray-800 mb-12">I'd love to hear from you! Send me a message and I'll respond as soon as possible.</p>
     
     <!-- Success Message -->
     {% if success %}
-    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg" role="alert">
+    <div class="bg-emerald-100 border-l-4 border-emerald-600 text-emerald-700 p-4 mb-6 rounded-lg" role="alert">
       <div class="flex items-center">
         <i class="fas fa-check-circle text-2xl mr-3"></i>
         <p class="font-semibold">{{ success }}</p>
@@ -18,7 +18,7 @@
 
     <!-- Error Message -->
     {% if error %}
-    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg" role="alert">
+    <div class="bg-violet-100 border-l-4 border-violet-600 text-violet-700 p-4 mb-6 rounded-lg" role="alert">
       <div class="flex items-center">
         <i class="fas fa-times-circle text-2xl mr-3"></i>
         <p class="font-semibold">{{ error }}</p>
@@ -29,7 +29,7 @@
     <div class="bg-white rounded-lg shadow-lg p-8">
       <form method="POST" action="/contact" class="space-y-6" id="contactForm">
         <div>
-          <label for="name" class="block text-gray-700 font-semibold mb-2">Name <span class="text-red-500">*</span></label>
+          <label for="name" class="block text-gray-800 font-semibold mb-2">Name <span class="text-violet-600">*</span></label>
           <input 
             type="text" 
             id="name" 
@@ -38,28 +38,28 @@
             minlength="2"
             maxlength="100"
             value="{{ form_data.name if form_data else '' }}"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
-            placeholder="Your Name"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent"
+            placeholder="John Doe"
           >
-          <p class="text-sm text-gray-500 mt-1">Must be at least 2 characters</p>
+          <p class="text-sm text-gray-800 mt-1">Must be at least 2 characters</p>
         </div>
 
         <div>
-          <label for="email" class="block text-gray-700 font-semibold mb-2">Email <span class="text-red-500">*</span></label>
+          <label for="email" class="block text-gray-800 font-semibold mb-2">Email <span class="text-violet-600">*</span></label>
           <input 
             type="email" 
             id="email" 
             name="email" 
             required
             value="{{ form_data.email if form_data else '' }}"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
-            placeholder="your.email@example.com"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent"
+            placeholder="john.doe@example.com"
           >
-          <p class="text-sm text-gray-500 mt-1">We'll use this to reply to you</p>
+          <p class="text-sm text-gray-800 mt-1">We'll use this to reply to you</p>
         </div>
 
         <div>
-          <label for="subject" class="block text-gray-700 font-semibold mb-2">Subject <span class="text-red-500">*</span></label>
+          <label for="subject" class="block text-gray-800 font-semibold mb-2">Subject <span class="text-violet-600">*</span></label>
           <input 
             type="text" 
             id="subject" 
@@ -68,14 +68,14 @@
             minlength="3"
             maxlength="200"
             value="{{ form_data.subject if form_data else '' }}"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent"
             placeholder="What's this about?"
           >
-          <p class="text-sm text-gray-500 mt-1">Brief description of your inquiry</p>
+          <p class="text-sm text-gray-800 mt-1">Brief description of your inquiry</p>
         </div>
 
         <div>
-          <label for="message" class="block text-gray-700 font-semibold mb-2">Message <span class="text-red-500">*</span></label>
+          <label for="message" class="block text-gray-800 font-semibold mb-2">Message <span class="text-violet-600">*</span></label>
           <textarea 
             id="message" 
             name="message" 
@@ -83,16 +83,16 @@
             required
             minlength="10"
             maxlength="5000"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent"
             placeholder="Your message here..."
           >{{ form_data.message if form_data else '' }}</textarea>
-          <p class="text-sm text-gray-500 mt-1">Must be at least 10 characters ({{ form_data.message|length if form_data and form_data.message else 0 }}/5000)</p>
+          <p class="text-sm text-gray-800 mt-1">Must be at least 10 characters ({{ form_data.message|length if form_data and form_data.message else 0 }}/5000)</p>
         </div>
 
         <button 
           type="submit" 
           id="submitBtn"
-          class="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300 font-semibold text-lg disabled:bg-gray-400 disabled:cursor-not-allowed"
+          class="w-full bg-emerald-700 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 transition duration-300 font-semibold text-lg disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           <span id="submitText">Send Message</span>
           <span id="submitLoading" class="hidden">Sending...</span>
@@ -141,42 +141,42 @@
     </script>
 
     <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-      <div class="bg-white rounded-lg shadow-lg p-5 flex flex-col items-center justify-center min-h-[180px]">
-        <div class="text-3xl mb-2 text-green-600">
+      <div class="contact-card">
+        <div class="contact-icon text-green-700">
           <i class="fas fa-envelope"></i>
         </div>
-        <h3 class="font-bold text-gray-800 mb-2 text-sm">Email</h3>
-        <a href="mailto:chmahadev321@gmail.com" class="text-gray-600 text-xs hover:text-green-600 transition duration-300 whitespace-nowrap">
+        <!-- <h3 class="contact-title">Email</h3> -->
+        <a href="mailto:chmahadev321@gmail.com" class="contact-link hover:text-green-600">
           chmahadev321@gmail.com
         </a>
       </div>
       
-      <div class="bg-white rounded-lg shadow-lg p-5 flex flex-col items-center justify-center min-h-[180px]">
-        <div class="text-3xl mb-2 text-blue-600">
+      <div class="contact-card">
+        <div class="contact-icon text-blue-700">
           <i class="fas fa-phone"></i>
         </div>
-        <h3 class="font-bold text-gray-800 mb-2 text-sm">Phone</h3>
-        <a href="tel:+918149287361" class="text-gray-600 text-xs hover:text-green-600 transition duration-300 whitespace-nowrap">
-          +91 8149287361
+        <!-- <h3 class="contact-title">Phone</h3> -->
+        <a href="tel:+918149287361" class="contact-link hover:text-blue-600">
+          +918149287361
         </a>
       </div>
       
-      <div class="bg-white rounded-lg shadow-lg p-5 flex flex-col items-center justify-center min-h-[180px]">
-        <div class="text-3xl mb-2 text-purple-600">
+      <div class="contact-card">
+        <div class="contact-icon text-purple-700">
           <i class="fas fa-map-marker-alt"></i>
         </div>
-        <h3 class="font-bold text-gray-800 mb-2 text-sm">Location</h3>
-        <p class="text-gray-600 text-xs whitespace-nowrap">Pune, India</p>
+        <!-- <h3 class="contact-title">Location</h3> -->
+        <p class="contact-link">Pune, India</p>
       </div>
       
-      <div class="bg-white rounded-lg shadow-lg p-5 flex flex-col items-center justify-center min-h-[180px]">
-        <div class="text-3xl mb-2 text-blue-700">
+      <div class="contact-card">
+        <div class="contact-icon text-blue-700">
           <i class="fab fa-linkedin"></i>
         </div>
-        <h3 class="font-bold text-gray-800 mb-2 text-sm">LinkedIn</h3>
+        <!-- <h3 class="contact-title">LinkedIn</h3> -->
         <a href="https://www.linkedin.com/in/mahadev-chavan/" target="_blank" rel="noopener noreferrer" 
-           class="text-blue-600 hover:text-blue-700 text-xs font-semibold transition duration-300 whitespace-nowrap">
-          Connect with me →
+           class="contact-link hover:text-blue-600 font-semibold">
+          Connect →
         </a>
       </div>
     </div>
