@@ -9,8 +9,8 @@ from email.mime.multipart import MIMEMultipart
 import os
 import re
 from typing import Optional, Tuple
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 app = FastAPI()
 
