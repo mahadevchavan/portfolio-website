@@ -2,6 +2,7 @@
 
 This repository contains my personal portfolio website built with FastAPI and Jinja2.
 It showcases my projects, skills, and includes a fully working contact form with email delivery.
+
 🚀 Live Site:  Loading...
 
 
