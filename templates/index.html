@@ -49,7 +49,8 @@
         <button onclick="toggleResources('ml-resources')" class="text-emerald-600 hover:text-emerald-700 font-semibold text-sm mb-4">
           <i class="fas fa-book mr-1"></i> View Resources
         </button>
-        <div id="ml-resources" class="hidden text-left mt-4 pt-4 border-t border-gray-200">
+        <div id="ml-resources" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out opacity-0">
+          <div class="text-left mt-4 pt-4 border-t border-gray-200">
           <h4 class="font-bold text-gray-800 mb-3 text-sm">📚 Books</h4>
           <ul class="space-y-2 mb-4 text-xs">
             <li><a href="https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1492032646" target="_blank" class="text-sky-600 hover:underline">Hands-On Machine Learning - Aurélien Géron</a></li>
@@ -69,6 +70,7 @@
             <li><a href="https://arxiv.org/list/cs.LG/recent" target="_blank" class="text-violet-600 hover:underline">arXiv ML Papers</a></li>
           </ul>
         </div>
+        </div>
       </div>
       
       <!-- Deep Learning Card -->
@@ -81,7 +83,8 @@
         <button onclick="toggleResources('dl-resources')" class="text-sky-700 hover:text-sky-700 font-semibold text-sm mb-4">
           <i class="fas fa-book mr-1"></i> View Resources
         </button>
-        <div id="dl-resources" class="hidden text-left mt-4 pt-4 border-t border-gray-200">
+        <div id="dl-resources" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out opacity-0">
+          <div class="text-left mt-4 pt-4 border-t border-gray-200">
           <h4 class="font-bold text-gray-800 mb-3 text-sm">📚 Books</h4>
           <ul class="space-y-2 mb-4 text-xs">
             <li><a href="https://www.deeplearningbook.org/" target="_blank" class="text-sky-700 hover:underline">Deep Learning Book - Goodfellow et al.</a></li>
@@ -101,6 +104,7 @@
             <li><a href="https://arxiv.org/list/cs.NE/recent" target="_blank" class="text-violet-600 hover:underline">arXiv Deep Learning Papers</a></li>
           </ul>
         </div>
+        </div>
       </div>
       
       <!-- Generative AI Card -->
@@ -113,7 +117,8 @@
         <button onclick="toggleResources('genai-resources')" class="text-violet-700 hover:text-violet-700 font-semibold text-sm mb-4">
           <i class="fas fa-book mr-1"></i> View Resources
         </button>
-        <div id="genai-resources" class="hidden text-left mt-4 pt-4 border-t border-gray-200">
+        <div id="genai-resources" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out opacity-0">
+          <div class="text-left mt-4 pt-4 border-t border-gray-200">
           <h4 class="font-bold text-gray-800 mb-3 text-sm">📚 Books</h4>
           <ul class="space-y-2 mb-4 text-xs">
             <li><a href="https://www.amazon.com/Generative-Deep-Learning-Teaching-Machines/dp/1492041947" target="_blank" class="text-sky-600 hover:underline">Generative Deep Learning - David Foster</a></li>
@@ -134,18 +139,21 @@
             <li><a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/" target="_blank" class="text-violet-600 hover:underline">What are Diffusion Models?</a></li>
           </ul>
         </div>
+        </div>
       </div>
     </div>
 
     <script>
       function toggleResources(resourceId) {
-        const resourceDiv = document.getElementById(resourceId);
-        if (resourceDiv.classList.contains('hidden')) {
-          resourceDiv.classList.remove('hidden');
-          resourceDiv.classList.add('block');
+        const element = document.getElementById(resourceId);
+        if (element.style.maxHeight) {
+          element.style.maxHeight = null;
+          element.classList.remove('opacity-100');
+          element.classList.add('opacity-0');
         } else {
-          resourceDiv.classList.add('hidden');
-          resourceDiv.classList.remove('block');
+          element.classList.remove('opacity-0');
+          element.classList.add('opacity-100');
+          element.style.maxHeight = element.scrollHeight + "px";
         }
       }
     </script>
