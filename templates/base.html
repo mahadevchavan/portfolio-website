@@ -15,10 +15,10 @@
       <div class="flex justify-between items-center">
         <a href="/" class="text-2xl font-bold text-emerald-700">Mahadev Chavan</a>
         <div class="flex gap-6">
-          <a href="/" class="text-gray-800 hover:text-emerald-600 transition duration-300 font-medium">Home</a>
-          <a href="/about" class="text-gray-800 hover:text-sky-600 transition duration-300 font-medium">About</a>
-          <a href="/projects" class="text-gray-800 hover:text-violet-600 transition duration-300 font-medium">Projects</a>
-          <a href="/contact" class="text-gray-800 hover:text-emerald-600 transition duration-300 font-medium">Contact</a>
+          <a href="/" class="{{ 'text-emerald-600' if active_page == 'home' else 'text-gray-800' }} hover:text-emerald-600 transition duration-300 font-medium">Home</a>
+          <a href="/about" class="{{ 'text-sky-600' if active_page == 'about' else 'text-gray-800' }} hover:text-sky-600 transition duration-300 font-medium">About</a>
+          <a href="/projects" class="{{ 'text-violet-600' if active_page == 'projects' else 'text-gray-800' }} hover:text-violet-600 transition duration-300 font-medium">Projects</a>
+          <a href="/contact" class="{{ 'text-emerald-600' if active_page == 'contact' else 'text-gray-800' }} hover:text-emerald-600 transition duration-300 font-medium">Contact</a>
         </div>
       </div>
     </nav>

@@ -32,7 +32,6 @@ templates = Jinja2Templates(directory="templates")
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {
         "request": request,
-        "title": "Home - Mahadev Chavan | Data Science Engineer",
         "year": datetime.now().year
     })
 
@@ -40,7 +39,6 @@ async def read_root(request: Request):
 async def about_page(request: Request):
     return templates.TemplateResponse("about.html", {
         "request": request,
-        "title": "About - Mahadev Chavan | Data Science Engineer",
         "year": datetime.now().year
     })
 
@@ -48,7 +46,6 @@ async def about_page(request: Request):
 async def projects_page(request: Request):
     return templates.TemplateResponse("projects.html", {
         "request": request,
-        "title": "Projects - Mahadev Chavan | Data Science Engineer",
         "year": datetime.now().year
     })
 
@@ -157,7 +154,6 @@ You can reply directly to this email to respond to {name} at {email}
 async def contact_page(request: Request, success: Optional[str] = None, error: Optional[str] = None):
     return templates.TemplateResponse("contact.html", {
         "request": request,
-        "title": "Contact - My Portfolio",
         "year": datetime.now().year,
         "success": success,
         "error": error
@@ -178,7 +174,6 @@ async def submit_contact(
         if not is_valid:
             return templates.TemplateResponse("contact.html", {
                 "request": request,
-                "title": "Contact - Mahadev Chavan | Data Science Engineer",
                 "year": datetime.now().year,
                 "error": error_message,
                 "form_data": {
@@ -213,7 +208,6 @@ async def submit_contact(
             error_message = email_error if email_error else "Sorry, there was an error sending your message. Please try again later or contact me directly via email."
             return templates.TemplateResponse("contact.html", {
                 "request": request,
-                "title": "Contact - Mahadev Chavan | Data Science Engineer",
                 "year": datetime.now().year,
                 "error": error_message,
                 "form_data": {

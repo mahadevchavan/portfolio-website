@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% set active_page = "contact" %}
 
 {% block content %}
 <div class="container mx-auto px-4 py-16">
-  <div class="max-w-2xl mx-auto">
+  <div class="max-w-5xl mx-auto">
     <h1 class="text-4xl font-bold mb-8 text-gray-800 text-center">Get In Touch</h1>
     <p class="text-center text-gray-800 mb-12">I'd love to hear from you! Send me a message and I'll respond as soon as possible.</p>
     
     <!-- Success Message -->
     {% if success %}
-    <div class="bg-emerald-100 border-l-4 border-emerald-600 text-emerald-700 p-4 mb-6 rounded-lg" role="alert">
+    <div class="max-w-3xl mx-auto bg-emerald-100 border-l-4 border-emerald-600 text-emerald-700 p-4 mb-6 rounded-lg" role="alert">
       <div class="flex items-center">
         <i class="fas fa-check-circle text-2xl mr-3"></i>
         <p class="font-semibold">{{ success }}</p>
@@ -18,7 +19,7 @@
 
     <!-- Error Message -->
     {% if error %}
-    <div class="bg-violet-100 border-l-4 border-violet-600 text-violet-700 p-4 mb-6 rounded-lg" role="alert">
+    <div class="max-w-3xl mx-auto bg-violet-100 border-l-4 border-violet-600 text-violet-700 p-4 mb-6 rounded-lg" role="alert">
       <div class="flex items-center">
         <i class="fas fa-times-circle text-2xl mr-3"></i>
         <p class="font-semibold">{{ error }}</p>
@@ -26,7 +27,7 @@
     </div>
     {% endif %}
     
-    <div class="bg-white rounded-lg shadow-lg p-8">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-3xl mx-auto">
       <form method="POST" action="/contact" class="space-y-6" id="contactForm">
         <div>
           <label for="name" class="block text-gray-800 font-semibold mb-2">Name <span class="text-violet-600">*</span></label>
@@ -142,40 +143,40 @@
 
     <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
       <div class="contact-card">
-        <div class="contact-icon text-green-700">
+        <div class="contact-icon text-green-700 mb-4">
           <i class="fas fa-envelope"></i>
         </div>
         <!-- <h3 class="contact-title">Email</h3> -->
-        <a href="mailto:chmahadev321@gmail.com" class="contact-link hover:text-green-600">
+        <a href="mailto:chmahadev321@gmail.com" class="contact-link hover:text-green-600 block">
           chmahadev321@gmail.com
         </a>
       </div>
       
       <div class="contact-card">
-        <div class="contact-icon text-blue-700">
+        <div class="contact-icon text-blue-700 mb-4">
           <i class="fas fa-phone"></i>
         </div>
         <!-- <h3 class="contact-title">Phone</h3> -->
-        <a href="tel:+918149287361" class="contact-link hover:text-blue-600">
-          +918149287361
+        <a href="tel:+918149287361" class="contact-link hover:text-blue-600 block">
+          +91 81492 87361
         </a>
       </div>
       
       <div class="contact-card">
-        <div class="contact-icon text-purple-700">
+        <div class="contact-icon text-purple-700 mb-4">
           <i class="fas fa-map-marker-alt"></i>
         </div>
         <!-- <h3 class="contact-title">Location</h3> -->
-        <p class="contact-link">Pune, India</p>
+        <p class="contact-link block">Pune, India</p>
       </div>
       
       <div class="contact-card">
-        <div class="contact-icon text-blue-700">
+        <div class="contact-icon text-blue-700 mb-4">
           <i class="fab fa-linkedin"></i>
         </div>
         <!-- <h3 class="contact-title">LinkedIn</h3> -->
         <a href="https://www.linkedin.com/in/mahadev-chavan/" target="_blank" rel="noopener noreferrer" 
-           class="contact-link hover:text-blue-600 font-semibold">
+           class="contact-link hover:text-blue-600 font-semibold block">
           Connect →
         </a>
       </div>
@@ -183,4 +184,3 @@
   </div>
 </div>
 {% endblock %}
-
