@@ -3,20 +3,46 @@
 {% set active_page = "home" %}
 
 {% block content %}
+<style>
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+  .delay-2000 { animation-delay: 2.0s; }
+  .delay-2200 { animation-delay: 2.2s; }
+  .delay-2400 { animation-delay: 2.4s; }
+  .delay-2600 { animation-delay: 2.6s; }
+  .delay-2800 { animation-delay: 2.8s; }
+  .delay-3000 { animation-delay: 3.0s; }
+  .delay-3200 { animation-delay: 3.2s; }
+  .delay-3400 { animation-delay: 3.4s; }
+
+  .cursor::after {
+    content: '|';
+    animation: blink 1s step-start infinite;
+    color: #047857;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
 <div class="container mx-auto px-4 py-16">
   <div class="max-w-5xl mx-auto">
     <!-- Hero Section -->
     <div class="text-center mb-16">
-      <h2 class="text-2xl font-bold mb-2 text-gray-600">
-        Hello 👋, I'm </h2> <h1><span class="text-6xl font-bold mb-1 text-emerald-700">Mahadev Chavan </span> 
+      <h2 class="text-2xl font-bold mb-2 text-gray-600 animate-fade-in-up">
+        Hello 👋, I'm </h2> 
+      <h1 class="min-h-[5rem] mb-1"><span id="typewriter-text" class="text-6xl font-bold text-emerald-700 cursor"></span> 
       </h1>
-      <p class="text-2xl text-gray-800 mb-6 font-semibold">Data Science Engineer</p>
-      <p class="text-xl text-gray-800 mb-8">Specializing in Machine Learning, Deep Learning & Generative AI</p>
-      <p class="text-lg text-gray-800 max-w-3xl mx-auto mb-12">
+      <p class="text-2xl text-gray-800 mb-6 font-semibold animate-fade-in-up delay-2000">Data Science Engineer</p>
+      <p class="text-xl text-gray-800 mb-8 animate-fade-in-up delay-2200">Specializing in Machine Learning, Deep Learning & Generative AI</p>
+      <p class="text-lg text-gray-800 max-w-3xl mx-auto mb-12 animate-fade-in-up delay-2400">
         Transforming data into intelligent solutions through cutting-edge AI models and innovative machine learning techniques.
       </p>
       
-      <div class="flex justify-center gap-4 flex-wrap mb-8">
+      <div class="flex justify-center gap-4 flex-wrap mb-8 animate-fade-in-up delay-2600">
         <a href="/about" class="bg-emerald-700 text-white px-8 py-3 rounded-lg hover:bg-emerald-800 transition duration-300 font-semibold">
           About Me
         </a>
@@ -38,9 +64,16 @@
     </div> -->
 
     <!-- Key Expertise Section -->
-    <div class="grid md:grid-cols-3 gap-6 mt-16">
+    <div class="text-center mt-20 mb-12 animate-fade-in-up delay-2800">
+      <h2 class="text-3xl font-bold text-gray-800 mb-3">Knowledge Hub</h2>
+      <p class="text-gray-600 max-w-3xl mx-auto text-lg">
+        Explore the core domains I specialize in. Below are the specific tools I use and the vetted resources that power my research and development.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
       <!-- Machine Learning Card -->
-      <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition duration-300">
+      <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition duration-300 animate-fade-in-up delay-3000">
         <div class="text-5xl mb-4 text-emerald-600">
           <i class="fas fa-robot"></i>
         </div>
@@ -51,30 +84,30 @@
         </button>
         <div id="ml-resources" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out opacity-0">
           <div class="text-left mt-4 pt-4 border-t border-gray-200">
-          <h4 class="font-bold text-gray-800 mb-3 text-sm">📚 Books</h4>
+          <h4 class="font-bold text-gray-800 mb-3 text-sm opacity-0">📚 Books</h4>
           <ul class="space-y-2 mb-4 text-xs">
-            <li><a href="https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1492032646" target="_blank" class="text-sky-600 hover:underline">Hands-On Machine Learning - Aurélien Géron</a></li>
-            <li><a href="https://www.amazon.com/Pattern-Recognition-Learning-Information-Statistics/dp/0387310738" target="_blank" class="text-sky-600 hover:underline">Pattern Recognition & ML - Bishop</a></li>
-            <li><a href="https://www.amazon.com/Machine-Learning-Yearning-Andrew-Ng/dp/199957950X" target="_blank" class="text-sky-600 hover:underline">Machine Learning Yearning - Andrew Ng</a></li>
+            <li class="opacity-0"><a href="https://www.amazon.com/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1492032646" target="_blank" class="text-sky-600 hover:underline">Hands-On Machine Learning - Aurélien Géron</a></li>
+            <li class="opacity-0"><a href="https://www.amazon.com/Pattern-Recognition-Learning-Information-Statistics/dp/0387310738" target="_blank" class="text-sky-600 hover:underline">Pattern Recognition & ML - Bishop</a></li>
+            <li class="opacity-0"><a href="https://www.amazon.com/Machine-Learning-Yearning-Andrew-Ng/dp/199957950X" target="_blank" class="text-sky-600 hover:underline">Machine Learning Yearning - Andrew Ng</a></li>
           </ul>
-          <h4 class="font-bold text-gray-800 mb-3 text-sm">🎥 YouTube</h4>
+          <h4 class="font-bold text-gray-800 mb-3 text-sm opacity-0">🎥 YouTube</h4>
           <ul class="space-y-2 mb-4 text-xs">
-            <li><a href="https://www.youtube.com/watch?v=PPLop4L2eGk" target="_blank" class="text-sky-600 hover:underline">ML Course - Andrew Ng (Stanford)</a></li>
-            <li><a href="https://www.youtube.com/c/3Blue1Brown" target="_blank" class="text-sky-600 hover:underline">3Blue1Brown - Neural Networks</a></li>
-            <li><a href="https://www.youtube.com/c/StatQuest" target="_blank" class="text-sky-600 hover:underline">StatQuest - ML Explained Simply</a></li>
+            <li class="opacity-0"><a href="https://www.youtube.com/watch?v=PPLop4L2eGk" target="_blank" class="text-sky-600 hover:underline">ML Course - Andrew Ng (Stanford)</a></li>
+            <li class="opacity-0"><a href="https://www.youtube.com/c/3Blue1Brown" target="_blank" class="text-sky-600 hover:underline">3Blue1Brown - Neural Networks</a></li>
+            <li class="opacity-0"><a href="https://www.youtube.com/c/StatQuest" target="_blank" class="text-sky-600 hover:underline">StatQuest - ML Explained Simply</a></li>
           </ul>
-          <h4 class="font-bold text-gray-800 mb-3 text-sm">📝 Blogs & Papers</h4>
+          <h4 class="font-bold text-gray-800 mb-3 text-sm opacity-0">📝 Blogs & Papers</h4>
           <ul class="space-y-2 text-xs">
-            <li><a href="https://distill.pub/" target="_blank" class="text-violet-600 hover:underline">Distill.pub - ML Research</a></li>
-            <li><a href="https://towardsdatascience.com/" target="_blank" class="text-violet-600 hover:underline">Towards Data Science</a></li>
-            <li><a href="https://arxiv.org/list/cs.LG/recent" target="_blank" class="text-violet-600 hover:underline">arXiv ML Papers</a></li>
+            <li class="opacity-0"><a href="https://distill.pub/" target="_blank" class="text-violet-600 hover:underline">Distill.pub - ML Research</a></li>
+            <li class="opacity-0"><a href="https://towardsdatascience.com/" target="_blank" class="text-violet-600 hover:underline">Towards Data Science</a></li>
+            <li class="opacity-0"><a href="https://arxiv.org/list/cs.LG/recent" target="_blank" class="text-violet-600 hover:underline">arXiv ML Papers</a></li>
           </ul>
         </div>
         </div>
       </div>
       
       <!-- Deep Learning Card -->
-      <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition duration-300">
+      <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition duration-300 animate-fade-in-up delay-3200">
         <div class="text-5xl mb-4 text-sky-600">
           <i class="fas fa-brain"></i>
         </div>
@@ -85,30 +118,30 @@
         </button>
         <div id="dl-resources" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out opacity-0">
           <div class="text-left mt-4 pt-4 border-t border-gray-200">
-          <h4 class="font-bold text-gray-800 mb-3 text-sm">📚 Books</h4>
+          <h4 class="font-bold text-gray-800 mb-3 text-sm opacity-0">📚 Books</h4>
           <ul class="space-y-2 mb-4 text-xs">
-            <li><a href="https://www.deeplearningbook.org/" target="_blank" class="text-sky-700 hover:underline">Deep Learning Book - Goodfellow et al.</a></li>
-            <li><a href="https://www.amazon.com/Deep-Learning-PyTorch-Eli-Stevens/dp/1617295264" target="_blank" class="text-sky-600 hover:underline">Deep Learning with PyTorch</a></li>
-            <li><a href="https://www.amazon.com/Neural-Networks-Deep-Learning-Charu/dp/3319944622" target="_blank" class="text-sky-600 hover:underline">Neural Networks & Deep Learning</a></li>
+            <li class="opacity-0"><a href="https://www.deeplearningbook.org/" target="_blank" class="text-sky-700 hover:underline">Deep Learning Book - Goodfellow et al.</a></li>
+            <li class="opacity-0"><a href="https://www.amazon.com/Deep-Learning-PyTorch-Eli-Stevens/dp/1617295264" target="_blank" class="text-sky-600 hover:underline">Deep Learning with PyTorch</a></li>
+            <li class="opacity-0"><a href="https://www.amazon.com/Neural-Networks-Deep-Learning-Charu/dp/3319944622" target="_blank" class="text-sky-600 hover:underline">Neural Networks & Deep Learning</a></li>
           </ul>
-          <h4 class="font-bold text-gray-800 mb-3 text-sm">🎥 YouTube</h4>
+          <h4 class="font-bold text-gray-800 mb-3 text-sm opacity-0">🎥 YouTube</h4>
           <ul class="space-y-2 mb-4 text-xs">
-            <li><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi" target="_blank" class="text-sky-600 hover:underline">3Blue1Brown - Neural Networks</a></li>
-            <li><a href="https://www.youtube.com/c/deeplearningai" target="_blank" class="text-sky-600 hover:underline">DeepLearning.AI Channel</a></li>
-            <li><a href="https://www.youtube.com/c/AladdinPersson" target="_blank" class="text-sky-600 hover:underline">Aladdin Persson - PyTorch Tutorials</a></li>
+            <li class="opacity-0"><a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi" target="_blank" class="text-sky-600 hover:underline">3Blue1Brown - Neural Networks</a></li>
+            <li class="opacity-0"><a href="https://www.youtube.com/c/deeplearningai" target="_blank" class="text-sky-600 hover:underline">DeepLearning.AI Channel</a></li>
+            <li class="opacity-0"><a href="https://www.youtube.com/c/AladdinPersson" target="_blank" class="text-sky-600 hover:underline">Aladdin Persson - PyTorch Tutorials</a></li>
           </ul>
-          <h4 class="font-bold text-gray-800 mb-3 text-sm">📝 Blogs & Papers</h4>
+          <h4 class="font-bold text-gray-800 mb-3 text-sm opacity-0">📝 Blogs & Papers</h4>
           <ul class="space-y-2 text-xs">
-            <li><a href="https://paperswithcode.com/" target="_blank" class="text-violet-600 hover:underline">Papers with Code</a></li>
-            <li><a href="https://lilianweng.github.io/" target="_blank" class="text-violet-600 hover:underline">Lil'Log - ML Blog</a></li>
-            <li><a href="https://arxiv.org/list/cs.NE/recent" target="_blank" class="text-violet-600 hover:underline">arXiv Deep Learning Papers</a></li>
+            <li class="opacity-0"><a href="https://paperswithcode.com/" target="_blank" class="text-violet-600 hover:underline">Papers with Code</a></li>
+            <li class="opacity-0"><a href="https://lilianweng.github.io/" target="_blank" class="text-violet-600 hover:underline">Lil'Log - ML Blog</a></li>
+            <li class="opacity-0"><a href="https://arxiv.org/list/cs.NE/recent" target="_blank" class="text-violet-600 hover:underline">arXiv Deep Learning Papers</a></li>
           </ul>
         </div>
         </div>
       </div>
       
       <!-- Generative AI Card -->
-      <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition duration-300">
+      <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition duration-300 animate-fade-in-up delay-3400">
         <div class="text-5xl mb-4 text-violet-700">
           <i class="fas fa-magic"></i>
         </div>
@@ -119,24 +152,24 @@
         </button>
         <div id="genai-resources" class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out opacity-0">
           <div class="text-left mt-4 pt-4 border-t border-gray-200">
-          <h4 class="font-bold text-gray-800 mb-3 text-sm">📚 Books</h4>
+          <h4 class="font-bold text-gray-800 mb-3 text-sm opacity-0">📚 Books</h4>
           <ul class="space-y-2 mb-4 text-xs">
-            <li><a href="https://www.amazon.com/Generative-Deep-Learning-Teaching-Machines/dp/1492041947" target="_blank" class="text-sky-600 hover:underline">Generative Deep Learning - David Foster</a></li>
-            <li><a href="https://www.amazon.com/Building-LLMs-Production-Applications-Transformers/dp/1098150952" target="_blank" class="text-sky-600 hover:underline">Building LLMs for Production</a></li>
-            <li><a href="https://www.amazon.com/LangChain-Building-Applications-Large-Language/dp/1835083463" target="_blank" class="text-sky-600 hover:underline">LangChain for LLM Apps</a></li>
+            <li class="opacity-0"><a href="https://www.amazon.com/Generative-Deep-Learning-Teaching-Machines/dp/1492041947" target="_blank" class="text-sky-600 hover:underline">Generative Deep Learning - David Foster</a></li>
+            <li class="opacity-0"><a href="https://www.amazon.com/Building-LLMs-Production-Applications-Transformers/dp/1098150952" target="_blank" class="text-sky-600 hover:underline">Building LLMs for Production</a></li>
+            <li class="opacity-0"><a href="https://www.amazon.com/LangChain-Building-Applications-Large-Language/dp/1835083463" target="_blank" class="text-sky-600 hover:underline">LangChain for LLM Apps</a></li>
           </ul>
-          <h4 class="font-bold text-gray-800 mb-3 text-sm">🎥 YouTube</h4>
+          <h4 class="font-bold text-gray-800 mb-3 text-sm opacity-0">🎥 YouTube</h4>
           <ul class="space-y-2 mb-4 text-xs">
-            <li><a href="https://www.youtube.com/c/AndrejKarpathy" target="_blank" class="text-violet-600 hover:underline">Andrej Karpathy - AI Research</a></li>
-            <li><a href="https://www.youtube.com/c/YannicKilcher" target="_blank" class="text-violet-600 hover:underline">Yannic Kilcher - Paper Reviews</a></li>
-            <li><a href="https://www.youtube.com/c/TwoMinutePapers" target="_blank" class="text-violet-600 hover:underline">Two Minute Papers</a></li>
+            <li class="opacity-0"><a href="https://www.youtube.com/c/AndrejKarpathy" target="_blank" class="text-violet-600 hover:underline">Andrej Karpathy - AI Research</a></li>
+            <li class="opacity-0"><a href="https://www.youtube.com/c/YannicKilcher" target="_blank" class="text-violet-600 hover:underline">Yannic Kilcher - Paper Reviews</a></li>
+            <li class="opacity-0"><a href="https://www.youtube.com/c/TwoMinutePapers" target="_blank" class="text-violet-600 hover:underline">Two Minute Papers</a></li>
           </ul>
-          <h4 class="font-bold text-gray-800 mb-3 text-sm">📝 Blogs & Papers</h4>
+          <h4 class="font-bold text-gray-800 mb-3 text-sm opacity-0">📝 Blogs & Papers</h4>
           <ul class="space-y-2 text-xs">
-            <li><a href="https://arxiv.org/abs/1706.03762" target="_blank" class="text-violet-600 hover:underline">Attention Is All You Need (Transformers)</a></li>
-            <li><a href="https://openai.com/research" target="_blank" class="text-violet-600 hover:underline">OpenAI Research Blog</a></li>
-            <li><a href="https://huggingface.co/blog" target="_blank" class="text-violet-600 hover:underline">Hugging Face Blog</a></li>
-            <li><a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/" target="_blank" class="text-violet-600 hover:underline">What are Diffusion Models?</a></li>
+            <li class="opacity-0"><a href="https://arxiv.org/abs/1706.03762" target="_blank" class="text-violet-600 hover:underline">Attention Is All You Need (Transformers)</a></li>
+            <li class="opacity-0"><a href="https://openai.com/research" target="_blank" class="text-violet-600 hover:underline">OpenAI Research Blog</a></li>
+            <li class="opacity-0"><a href="https://huggingface.co/blog" target="_blank" class="text-violet-600 hover:underline">Hugging Face Blog</a></li>
+            <li class="opacity-0"><a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/" target="_blank" class="text-violet-600 hover:underline">What are Diffusion Models?</a></li>
           </ul>
         </div>
         </div>
@@ -144,16 +177,48 @@
     </div>
 
     <script>
+      // Typing animation for name
+      document.addEventListener('DOMContentLoaded', function() {
+        const text = "Mahadev Chavan";
+        const speed = 100;
+        let i = 0;
+        const element = document.getElementById("typewriter-text");
+        
+        function typeWriter() {
+          if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+          }
+        }
+        
+        // Start typing after a short delay
+        setTimeout(typeWriter, 500);
+      });
+
       function toggleResources(resourceId) {
         const element = document.getElementById(resourceId);
+        const items = element.querySelectorAll('h4, li');
+        
         if (element.style.maxHeight) {
           element.style.maxHeight = null;
           element.classList.remove('opacity-100');
           element.classList.add('opacity-0');
+          setTimeout(() => {
+            items.forEach(item => {
+              item.style.animation = 'none';
+              item.style.opacity = '0';
+            });
+          }, 500);
         } else {
           element.classList.remove('opacity-0');
           element.classList.add('opacity-100');
           element.style.maxHeight = element.scrollHeight + "px";
+          
+          items.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.animation = `fadeInUp 0.5s ease-out forwards ${index * 100}ms`;
+          });
         }
       }
     </script>
