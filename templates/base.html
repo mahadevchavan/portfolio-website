@@ -2,11 +2,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Mahadev Chavan, a Data Science Engineer specializing in Machine Learning, Deep Learning, and Generative AI. Explore projects, skills, and experience.">
     <title>{{ title or "Mahadev Chavan | Data Science Engineer" }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/static/styles.css">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
@@ -34,6 +35,7 @@
           <a href="/" class="{{ 'text-emerald-600' if active_page == 'home' else 'text-gray-800' }} hover:text-emerald-600 transition duration-300 font-medium">Home</a>
           <a href="/about" class="{{ 'text-sky-600' if active_page == 'about' else 'text-gray-800' }} hover:text-sky-600 transition duration-300 font-medium">About</a>
           <a href="/projects" class="{{ 'text-violet-600' if active_page == 'projects' else 'text-gray-800' }} hover:text-violet-600 transition duration-300 font-medium">Projects</a>
+          <a href="/resources" class="{{ 'text-amber-600' if active_page == 'resources' else 'text-gray-800' }} hover:text-amber-600 transition duration-300 font-medium">Resources</a>
           <a href="/contact" class="{{ 'text-emerald-600' if active_page == 'contact' else 'text-gray-800' }} hover:text-emerald-600 transition duration-300 font-medium">Contact</a>
         </div>
       </div>
@@ -48,7 +50,7 @@
     <div class="container mx-auto px-4 text-center">
       <div class="mb-4">
         <a href="https://www.linkedin.com/in/mahadev-chavan/" target="_blank" rel="noopener noreferrer" 
-           class="inline-flex items-center justify-center w-12 h-12 bg-sky-600 hover:bg-sky-700 rounded-full transition duration-300 mx-2">
+           class="inline-flex items-center justify-center w-12 h-12 bg-sky-600 hover:bg-sky-700 rounded-full transition duration-300 mx-2" aria-label="LinkedIn">
           <i class="fab fa-linkedin-in text-xl text-white"></i>
         </a>
       </div>

@@ -2,18 +2,6 @@
 {% set active_page = "contact" %}
 
 {% block content %}
-<style>
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
-    opacity: 0; /* Start hidden */
-  }
-  .delay-200 { animation-delay: 0.2s; }
-  .delay-300 { animation-delay: 0.3s; }
-</style>
 <div class="container mx-auto px-4 py-16">
   <div class="max-w-5xl mx-auto">
     <div class="animate-fade-in-up">
@@ -126,13 +114,16 @@
         submitBtn.disabled = true;
         submitText.classList.add('hidden');
         submitLoading.classList.remove('hidden');
-        
-        // Re-enable after 5 seconds in case of error (fallback)
-        setTimeout(() => {
-          submitBtn.disabled = false;
-          submitText.classList.remove('hidden');
-          submitLoading.classList.add('hidden');
-        }, 5000);
+      });
+
+      // Ensure button is enabled when page is loaded from cache (back button)
+      window.addEventListener('pageshow', function() {
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const submitLoading = document.getElementById('submitLoading');
+        submitBtn.disabled = false;
+        submitText.classList.remove('hidden');
+        submitLoading.classList.add('hidden');
       });
 
       // Real-time character count for message

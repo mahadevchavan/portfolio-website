@@ -2,21 +2,6 @@
 {% set active_page = "projects" %}
 
 {% block content %}
-<style>
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
-    opacity: 0; /* Start hidden */
-  }
-  .delay-100 { animation-delay: 0.1s; }
-  .delay-200 { animation-delay: 0.2s; }
-  .delay-300 { animation-delay: 0.3s; }
-  .delay-400 { animation-delay: 0.4s; }
-  .delay-500 { animation-delay: 0.5s; }
-</style>
 <div class="container mx-auto px-4 py-16">
   <div class="max-w-6xl mx-auto">
     <div class="animate-fade-in-up">
@@ -24,170 +9,34 @@
       <p class="text-center text-gray-600 mb-12 text-lg">Exploring the frontiers of AI through innovative machine learning and deep learning solutions</p>
     </div>
     
-    <!-- Project 1 -->
-    <div class="bg-white rounded-lg shadow-lg p-8 mb-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-100">
+    {% for project in projects %}
+    <div class="bg-white rounded-lg shadow-lg p-8 mb-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-{{ loop.index * 100 }}">
       <div class="flex flex-col md:flex-row gap-6">
         <div class="md:w-1/3">
-          <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg h-48 flex items-center justify-center text-white text-6xl">
-            <i class="fas fa-robot"></i>
+          <div class="bg-gradient-to-br {{ project.gradient }} rounded-lg h-48 flex items-center justify-center text-white text-6xl">
+            <i class="{{ project.icon }}"></i>
           </div>
         </div>
         <div class="md:w-2/3">
           <div class="flex items-center gap-3 mb-3">
-            <h2 class="text-3xl font-bold text-gray-800">Large Language Model Fine-tuning Platform</h2>
-            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Generative AI</span>
+            <h2 class="text-3xl font-bold text-gray-800">{{ project.title }}</h2>
+            <span class="{{ project.cat_class }} px-3 py-1 rounded-full text-sm font-semibold">{{ project.category }}</span>
           </div>
-          <p class="text-gray-600 mb-4 text-lg">
-            Developed an end-to-end platform for fine-tuning large language models (LLMs) on custom datasets. 
-            The system supports multiple model architectures including GPT, BERT, and T5 variants, with automated 
-            hyperparameter tuning and model evaluation pipelines.
-          </p>
+          <p class="text-gray-600 mb-4 text-lg">{{ project.desc }}</p>
           <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">PyTorch</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Transformers</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Hugging Face</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">AWS SageMaker</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Docker</span>
+            {% for tag in project.tags %}
+            <span class="{{ tag.class }} px-3 py-1 rounded-full text-sm">{{ tag.name }}</span>
+            {% endfor %}
           </div>
           <div class="flex gap-4">
-            <a href="#" class="text-green-600 hover:text-green-700 font-semibold">View Code →</a>
-            <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold">Read Paper →</a>
+            {% for link in project.links %}
+            <a href="{{ link.url }}" class="{{ link.class }} font-semibold">{{ link.text }}</a>
+            {% endfor %}
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Project 2 -->
-    <div class="bg-white rounded-lg shadow-lg p-8 mb-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-200">
-      <div class="flex flex-col md:flex-row gap-6">
-        <div class="md:w-1/3">
-          <div class="bg-gradient-to-br from-green-500 to-teal-600 rounded-lg h-48 flex items-center justify-center text-white text-6xl">
-            <i class="fas fa-palette"></i>
-          </div>
-        </div>
-        <div class="md:w-2/3">
-          <div class="flex items-center gap-3 mb-3">
-            <h2 class="text-3xl font-bold text-gray-800">AI-Powered Image Generation System</h2>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">Deep Learning</span>
-          </div>
-          <p class="text-gray-600 mb-4 text-lg">
-            Built a state-of-the-art image generation system using diffusion models and GANs. The system can generate 
-            high-quality images from text prompts with fine-grained control over style, composition, and artistic elements. 
-            Achieved FID score of 8.5 on benchmark datasets.
-          </p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">TensorFlow</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Stable Diffusion</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">GANs</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">CUDA</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Flask API</span>
-          </div>
-          <div class="flex gap-4">
-            <a href="#" class="text-green-600 hover:text-green-700 font-semibold">View Code →</a>
-            <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold">Live Demo →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 3 -->
-    <div class="bg-white rounded-lg shadow-lg p-8 mb-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-300">
-      <div class="flex flex-col md:flex-row gap-6">
-        <div class="md:w-1/3">
-          <div class="bg-gradient-to-br from-green-500 to-blue-600 rounded-lg h-48 flex items-center justify-center text-white text-6xl">
-            <i class="fas fa-chart-line"></i>
-          </div>
-        </div>
-        <div class="md:w-2/3">
-          <div class="flex items-center gap-3 mb-3">
-            <h2 class="text-3xl font-bold text-gray-800">Real-time Predictive Analytics Platform</h2>
-            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Machine Learning</span>
-          </div>
-          <p class="text-gray-600 mb-4 text-lg">
-            Designed and deployed a scalable ML platform for real-time predictions on streaming data. The system processes 
-            millions of events per second using distributed computing and serves predictions with sub-10ms latency. 
-            Implemented automated model retraining and A/B testing framework.
-          </p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Apache Spark</span>
-            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Kafka</span>
-            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">XGBoost</span>
-            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Kubernetes</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">MLflow</span>
-          </div>
-          <div class="flex gap-4">
-            <a href="#" class="text-green-600 hover:text-green-700 font-semibold">View Code →</a>
-            <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold">Case Study →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 4 -->
-    <div class="bg-white rounded-lg shadow-lg p-8 mb-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-400">
-      <div class="flex flex-col md:flex-row gap-6">
-        <div class="md:w-1/3">
-          <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg h-48 flex items-center justify-center text-white text-6xl">
-            <i class="fas fa-microscope"></i>
-          </div>
-        </div>
-        <div class="md:w-2/3">
-          <div class="flex items-center gap-3 mb-3">
-            <h2 class="text-3xl font-bold text-gray-800">Medical Image Analysis with Deep Learning</h2>
-            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Computer Vision</span>
-          </div>
-          <p class="text-gray-600 mb-4 text-lg">
-            Developed a deep learning system for automated medical image analysis and diagnosis assistance. The model uses 
-            convolutional neural networks (CNNs) and attention mechanisms to detect anomalies in medical scans with 94% 
-            accuracy. Implemented explainable AI features for clinical interpretability.
-          </p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">PyTorch</span>
-            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">ResNet</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Vision Transformers</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">DICOM</span>
-            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Grad-CAM</span>
-          </div>
-          <div class="flex gap-4">
-            <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold">View Code →</a>
-            <a href="#" class="text-purple-600 hover:text-purple-700 font-semibold">Research Paper →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 5 -->
-    <div class="bg-white rounded-lg shadow-lg p-8 mb-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 animate-fade-in-up delay-500">
-      <div class="flex flex-col md:flex-row gap-6">
-        <div class="md:w-1/3">
-          <div class="bg-gradient-to-br from-purple-500 to-rose-600 rounded-lg h-48 flex items-center justify-center text-white text-6xl">
-            <i class="fas fa-comments"></i>
-          </div>
-        </div>
-        <div class="md:w-2/3">
-          <div class="flex items-center gap-3 mb-3">
-            <h2 class="text-3xl font-bold text-gray-800">Intelligent Conversational AI Assistant</h2>
-            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-semibold">NLP</span>
-          </div>
-          <p class="text-gray-600 mb-4 text-lg">
-            Created an advanced conversational AI system using transformer architectures and reinforcement learning. 
-            The assistant can handle multi-turn conversations, maintain context, and perform complex reasoning tasks. 
-            Integrated with RAG (Retrieval-Augmented Generation) for domain-specific knowledge.
-          </p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">LangChain</span>
-            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">OpenAI GPT</span>
-            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Vector DB</span>
-            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">FastAPI</span>
-            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Redis</span>
-          </div>
-          <div class="flex gap-4">
-            <a href="#" class="text-green-600 hover:text-green-700 font-semibold">View Code →</a>
-            <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold">Try Demo →</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
