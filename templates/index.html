@@ -18,7 +18,7 @@
       <p class="text-2xl text-gray-800 mb-6 font-semibold animate-fade-in-up delay-2000">Data Science Engineer</p>
       <p class="text-xl text-gray-800 mb-8 animate-fade-in-up delay-2200">Specializing in Machine Learning, Deep Learning & Generative AI</p>
       <p class="text-lg text-gray-800 max-w-3xl mx-auto mb-12 animate-fade-in-up delay-2400">
-        Specializing in building scalable Generative AI agents and end-to-end Machine Learning pipelines to automate complex business workflows.
+        Building scalable AI agents and end-to-end pipelines to automate complex business workflows.
       </p>
       
       <div class="flex justify-center gap-4 flex-wrap mb-8 animate-fade-in-up delay-2600">
@@ -28,6 +28,19 @@
         <a href="/contact" class="bg-white text-emerald-700 border-2 border-emerald-700 px-8 py-3 rounded-lg hover:bg-emerald-50 transition duration-300 font-semibold">
           Contact Me
         </a>
+      </div>
+
+      <!-- Technologies Section (Social Proof) -->
+      <div class="mb-12 animate-fade-in-up delay-2800">
+        <p class="text-center text-gray-500 mb-6 font-medium uppercase tracking-wider text-sm">Technologies I Work With</p>
+        <div class="flex flex-wrap justify-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+          <i class="fab fa-python text-4xl text-emerald-700" title="Python"></i>
+          <i class="fab fa-aws text-4xl text-orange-500" title="AWS"></i>
+          <i class="fab fa-docker text-4xl text-blue-500" title="Docker"></i>
+          <i class="fas fa-database text-4xl text-gray-600" title="SQL"></i>
+          <i class="fab fa-linux text-4xl text-black" title="Linux"></i>
+          <i class="fab fa-git-alt text-4xl text-red-600" title="Git"></i>
+        </div>
       </div>
       
       <!-- Social Links -->
@@ -40,7 +53,7 @@
     </div> -->
 
     <!-- Featured Projects Section -->
-    <div class="mt-20 animate-fade-in-up delay-2800">
+    <div class="mt-20 animate-fade-in-up delay-3000">
       <div class="flex justify-between items-end mb-8">
         <h2 class="text-3xl font-bold text-gray-800">Featured Projects</h2>
         <a href="/projects" class="text-emerald-600 hover:text-emerald-700 font-semibold">View All Projects →</a>
@@ -61,7 +74,11 @@
                 <span class="{{ project.cat_class }} px-2 py-0.5 rounded-full text-xs font-semibold">{{ project.category }}</span>
               </div>
               <p class="text-gray-600 mb-4 text-sm line-clamp-2">{{ project.desc }}</p>
-              <a href="{{ project.links[0].url }}" class="text-emerald-600 hover:text-emerald-700 font-semibold text-sm">View Details →</a>
+              {% if project.links[0].url == '#' %}
+              <a href="javascript:void(0)" onclick="alert('Case study coming soon!')" class="text-emerald-600 hover:text-emerald-700 font-semibold text-sm">View Details →</a>
+              {% else %}
+              <a href="{{ project.links[0].url }}" target="_blank" class="text-emerald-600 hover:text-emerald-700 font-semibold text-sm">View Details →</a>
+              {% endif %}
             </div>
           </div>
         </div>
