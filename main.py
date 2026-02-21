@@ -132,13 +132,86 @@ def get_projects():
       }
     ]
 
+def get_static_about_data():
+    skills = [
+      {
+        'title': 'Programming Languages',
+        'items': [
+          {'name': 'Python', 'class': 'bg-emerald-100 text-emerald-700'},
+          {'name': 'R', 'class': 'bg-emerald-100 text-emerald-700'},
+          {'name': 'SQL', 'class': 'bg-emerald-100 text-emerald-700'},
+          {'name': 'Scala', 'class': 'bg-emerald-100 text-emerald-700'}
+        ]
+      },
+      {
+        'title': 'ML/DL Frameworks',
+        'items': [
+          {'name': 'TensorFlow', 'class': 'bg-sky-100 text-sky-700'},
+          {'name': 'PyTorch', 'class': 'bg-sky-100 text-sky-700'},
+          {'name': 'Keras', 'class': 'bg-sky-100 text-sky-700'},
+          {'name': 'Scikit-learn', 'class': 'bg-sky-100 text-sky-700'}
+        ]
+      },
+      {
+        'title': 'Generative AI',
+        'items': [
+          {'name': 'Transformers', 'class': 'bg-violet-100 text-violet-700'},
+          {'name': 'Hugging Face', 'class': 'bg-violet-100 text-violet-700'},
+          {'name': 'LangChain', 'class': 'bg-violet-100 text-violet-700'},
+          {'name': 'OpenAI API', 'class': 'bg-violet-100 text-violet-700'}
+        ]
+      },
+      {
+        'title': 'Tools & Technologies',
+        'items': [
+          {'name': 'Docker', 'class': 'bg-emerald-100 text-emerald-700'},
+          {'name': 'Kubernetes', 'class': 'bg-emerald-100 text-emerald-700'},
+          {'name': 'MLflow', 'class': 'bg-sky-100 text-sky-700'},
+          {'name': 'Airflow', 'class': 'bg-sky-100 text-sky-700'},
+          {'name': 'AWS/GCP', 'class': 'bg-violet-100 text-violet-700'}
+        ]
+      }
+    ]
+    
+    expertise = [
+      'Neural Networks & Deep Learning Architectures',
+      'Large Language Models (LLMs) & Fine-tuning',
+      'Computer Vision & Image Generation',
+      'Natural Language Processing (NLP)',
+      'Model Training, Optimization & MLOps',
+      'Production ML System Design'
+    ]
+    
+    education = [
+      {'degree': 'Diploma of Education, Artificial Intelligence and Machine Learning', 'school': 'University of Hyderabad', 'year': '2021 - 2022'},
+      {'degree': 'Master of Science in Computer Science', 'school': 'Savitribai Phule Pune University', 'year': '2018 - 2020'},
+      {'degree': 'Bachelor of Science in Computer Science', 'school': 'Savitribai Phule Pune University', 'year': '2015 - 2018'}
+    ]
+    
+    certifications = [
+      {'name': 'Generative AI with Large Language Models', 'issuer': 'Coursera', 'date': 'August 28, 2025', 'meta': 'Credential ID • 2PT7EW8G5857', 'color': 'emerald'},
+      {'name': 'Fundamental course in the AWS Machine Learning Scholarship!', 'issuer': 'Udacity', 'date': 'Aug 2020', 'meta': 'Issue Date • Aug 2020', 'color': 'sky'},
+      {'name': 'Microsoft Technology Associate: Windows Server Administration Fundamentals (MTA)', 'issuer': 'Microsoft', 'date': 'Jun 2019', 'meta': 'Issue Date • Jun 2019', 'color': 'violet'}
+    ]
+    
+    return skills, expertise, education, certifications
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     projects = get_projects()
+    experience, total_experience = calculate_experience()
+    skills, expertise, education, certifications = get_static_about_data()
+    
     return templates.TemplateResponse("index.html", {
         "request": request,
         "year": datetime.now().year,
-        "projects": projects[:3] # Pass only the first 3 projects
+        "projects": projects[:3], # Pass only the first 3 projects
+        "experience": experience,
+        "total_experience": total_experience,
+        "skills": skills,
+        "expertise": expertise,
+        "education": education,
+        "certifications": certifications
     })
 
 def calculate_experience():

@@ -92,6 +92,86 @@
       </div>
     </div>
 
+    <!-- Professional Experience Section -->
+    <div class="mt-20 animate-fade-in-up delay-3200">
+      <h2 class="text-3xl font-bold text-gray-800 mb-8">Professional Experience</h2>
+      <div class="space-y-6">
+        {% for job in experience %}
+        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+          <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
+            <h3 class="text-xl font-bold text-gray-800">{{ job.role }}</h3>
+            <span class="text-emerald-600 font-medium text-sm">{{ job.period }}</span>
+          </div>
+          <p class="text-gray-600 font-medium mb-2">{{ job.company }} <span class="text-gray-400 mx-2">|</span> <span class="text-sm text-gray-500">{% if job.mode %}{{ job.mode }} • {% endif %}~ {{ job.duration }}</span></p>
+          <p class="text-gray-600">{{ job.desc }}</p>
+        </div>
+        {% endfor %}
+        <div class="text-right">
+          <p class="text-sm text-gray-500 font-medium">Total Experience: ~ {{ total_experience }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills & Expertise Grid -->
+    <div class="mt-20 grid md:grid-cols-2 gap-8 animate-fade-in-up delay-3400">
+      <!-- Technical Skills -->
+      <div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Technical Skills</h2>
+        <div class="space-y-4">
+          {% for category in skills %}
+          <div class="bg-white rounded-lg shadow p-4 border border-gray-100">
+            <h4 class="font-semibold text-gray-800 mb-3">{{ category.title }}</h4>
+            <div class="flex flex-wrap gap-2">
+              {% for item in category['items'] %}
+              <span class="{{ item.class }} px-3 py-1 rounded-full text-sm">{{ item.name }}</span>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Education & Expertise -->
+      <div class="space-y-8">
+        <div>
+          <h2 class="text-3xl font-bold text-gray-800 mb-8">Education</h2>
+          <div class="space-y-4">
+            {% for edu in education %}
+            <div class="bg-white rounded-lg shadow p-4 border border-gray-100">
+              <h4 class="font-bold text-gray-800">{{ edu.degree }}</h4>
+              <p class="text-emerald-600 text-sm mt-1">{{ edu.school }}</p>
+              <p class="text-gray-500 text-xs mt-1">{{ edu.year }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        
+        <div>
+          <h2 class="text-3xl font-bold text-gray-800 mb-8">Certifications</h2>
+          <div class="space-y-3">
+            {% for cert in certifications %}
+            <div class="bg-white rounded-lg shadow p-4 border-l-4 border-{{ cert.color }}-600">
+              <h4 class="font-bold text-gray-800 text-sm">{{ cert.name }}</h4>
+              <div class="flex justify-between items-center mt-1">
+                <p class="text-{{ cert.color }}-600 text-xs">{{ cert.issuer }}</p>
+                <p class="text-gray-400 text-xs">{{ cert.date }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="mt-24 text-center animate-fade-in-up">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Ready to collaborate?</h2>
+      <p class="text-gray-600 mb-8 max-w-2xl mx-auto">I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.</p>
+      <a href="/contact" class="bg-emerald-700 text-white px-8 py-3 rounded-lg hover:bg-emerald-800 transition duration-300 font-semibold shadow-lg hover:shadow-xl inline-block">
+        Get In Touch
+      </a>
+    </div>
+
     <script>
       // Typing animation for name
       document.addEventListener('DOMContentLoaded', function() {
