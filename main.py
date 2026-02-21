@@ -35,6 +35,7 @@ def get_projects():
         'category': 'Generative AI',
         'cat_class': 'bg-green-100 text-green-800',
         'desc': 'Developed an end-to-end platform for fine-tuning LLMs on custom datasets. Reduced training costs by 40% using LoRA adapters and quantization. The system supports GPT, BERT, and T5 variants with automated evaluation pipelines.',
+        'image': None, # Example: '/static/llm-dashboard.jpg'
         'icon': 'fas fa-robot',
         'gradient': 'from-blue-500 to-purple-600',
         'tags': [
@@ -54,6 +55,7 @@ def get_projects():
         'category': 'Deep Learning',
         'cat_class': 'bg-purple-100 text-purple-800',
         'desc': 'Built a state-of-the-art image generation system using diffusion models and GANs. The system can generate high-quality images from text prompts with fine-grained control over style, composition, and artistic elements. Achieved FID score of 8.5 on benchmark datasets.',
+        'image': None,
         'icon': 'fas fa-palette',
         'gradient': 'from-green-500 to-teal-600',
         'tags': [
@@ -73,6 +75,7 @@ def get_projects():
         'category': 'Machine Learning',
         'cat_class': 'bg-green-100 text-green-800',
         'desc': 'Designed a scalable ML platform processing 50k+ events per second with sub-10ms latency. The system leverages distributed computing for real-time predictions and includes an automated retraining framework that improved model freshness by 200%.',
+        'image': None,
         'icon': 'fas fa-chart-line',
         'gradient': 'from-green-500 to-blue-600',
         'tags': [
@@ -92,6 +95,7 @@ def get_projects():
         'category': 'Computer Vision',
         'cat_class': 'bg-blue-100 text-blue-800',
         'desc': 'Developed a deep learning system for automated medical image analysis, achieving 94% diagnostic accuracy. The model uses CNNs and attention mechanisms to detect anomalies, reducing manual review time for radiologists by approximately 30%.',
+        'image': None,
         'icon': 'fas fa-microscope',
         'gradient': 'from-blue-500 to-purple-600',
         'tags': [
@@ -111,6 +115,7 @@ def get_projects():
         'category': 'NLP',
         'cat_class': 'bg-pink-100 text-pink-800',
         'desc': 'Created an advanced conversational AI system using RAG (Retrieval-Augmented Generation). The assistant handles multi-turn conversations with context retention, reducing customer support ticket volume by 45% in pilot testing.',
+        'image': None,
         'icon': 'fas fa-comments',
         'gradient': 'from-purple-500 to-rose-600',
         'tags': [
