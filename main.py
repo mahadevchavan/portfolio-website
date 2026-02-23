@@ -223,16 +223,92 @@ def calculate_experience():
         'start_date': '2024-04-01',
         'end_date': 'Current',
         'mode': 'Hybrid Mode',
-        'desc': 'Developing and deploying machine learning models and AI solutions. Working on end-to-end ML pipelines, model optimization, and production-grade AI systems.'
+        'desc': """
+<ul class="list-disc pl-4 space-y-4 mt-2">
+    <li>
+        <span class="font-bold text-gray-900">ML-Powered Automation (Salesforce):</span> Engineered an end-to-end machine learning ticket routing system integrated with Salesforce. Designed custom feature engineering logic to evaluate ticket complexity, resolution trends, and engineer efficiency.
+        <div class="mt-1 text-emerald-700 font-medium text-sm">Impact: Achieved a ~60% reduction in manual intervention, drastically improving service response times and customer satisfaction.</div>
+    </li>
+    <li>
+        <span class="font-bold text-gray-900">NLP & Search Systems:</span> Built an automated backend system using Python, Pandas, and advanced NLP (similarity search) to precisely match customer requirements with relevant inventory materials.
+        <div class="mt-1 text-emerald-700 font-medium text-sm">Impact: Streamlined material quantity estimation, reducing manual effort by ~75% while increasing decision accuracy.</div>
+    </li>
+    <li>
+        <span class="font-bold text-gray-900">Computer Vision Solutions:</span> Developed a real-time Computer Vision POC for applicant monitoring. Leveraged facial landmarks, gaze estimation, and geometric analysis to track eye movement and attention during coding assessments.
+    </li>
+    <li>
+        <span class="font-bold text-gray-900">Predictive Analytics:</span> Built and deployed an AI-powered predictive maintenance model for enterprise HVAC systems, enabling proactive monitoring and significant operational efficiency improvements for the client.
+    </li>
+    <li>
+        <span class="font-bold text-gray-900">MLOps & Deployment:</span> Collaborated across teams to deploy, maintain, and scale production-ready AI solutions using Docker and custom data ingestion pipelines (XML-RPC APIs).
+    </li>
+</ul>
+<div class="mt-4 flex flex-wrap gap-2 border-t border-gray-100 pt-3">
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Salesforce</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">ML Automation</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">NLP</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Python</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Computer Vision</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Predictive Analytics</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">MLOps</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Docker</span>
+</div>
+"""
       },
       {
-        'role': 'Training Engineer',
+        'role': 'Trainee Engineer',
         'company': 'Neosoft Technologies',
         'period': 'May 2022 - January 2023',
         'start_date': '2022-05-01',
         'end_date': '2023-01-31',
         'mode': '',
-        'desc': 'Conducted technical training sessions and workshops. Developed training materials and curriculum for data science and machine learning topics.'
+        'desc': """
+<ul class="list-disc pl-4 space-y-4 mt-2">
+    <li>
+        Conducted comprehensive exploratory data analysis (EDA) using Pandas, SQL, and Matplotlib to extract actionable business insights.
+    </li>
+    <li>
+        Developed and trained Computer Vision models for image processing tasks, utilizing OpenCV and CNN architectures.
+    </li>
+    <li>
+        Supported the end-to-end machine learning lifecycle, from initial data preparation to model training and performance evaluation.
+    </li>
+</ul>
+<div class="mt-4 flex flex-wrap gap-2 border-t border-gray-100 pt-3">
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">EDA</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Pandas</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">SQL</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Computer Vision</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">OpenCV</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">CNN</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">ML Lifecycle</span>
+</div>
+"""
+      },
+      {
+        'role': 'Data Science Intern',
+        'company': 'Sciffer Analytics Pte Ltd',
+        'period': 'May 2021 - Aug 2021',
+        'start_date': '2021-05-01',
+        'end_date': '2021-08-31',
+        'mode': 'Remote',
+        'desc': """
+<ul class="list-disc pl-4 space-y-4 mt-2">
+    <li>
+        Sourced, curated, and annotated large-scale, complex datasets to directly support the training of Computer Vision models.
+    </li>
+    <li>
+        Supervised a 5-person data annotation team during interim periods, ensuring workflow continuity, task delegation, and strict data quality standards.
+    </li>
+</ul>
+<div class="mt-4 flex flex-wrap gap-2 border-t border-gray-100 pt-3">
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Data Annotation</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Computer Vision</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Team Supervision</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Data Quality</span>
+    <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded font-semibold">Workflow Management</span>
+</div>
+"""
       }
     ]
     

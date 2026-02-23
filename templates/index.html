@@ -8,30 +8,36 @@
     <!-- Hero Section -->
     <div class="text-center mb-16">
       <!-- Headshot -->
-      <div class="mb-6 animate-fade-in-up">
+      <div class="mb-6">
         <img src="/static/profile.jpeg" alt="Mahadev Chavan" class="w-32 h-32 rounded-xl mx-auto shadow-lg object-cover border-4 border-white">
       </div>
-      <h2 class="text-2xl font-bold mb-2 text-gray-600 animate-fade-in-up">
+      <h2 class="text-2xl font-bold mb-2 text-gray-600">
         Hello 👋, I'm </h2> 
-      <h1 class="min-h-[5rem] mb-1"><span id="typewriter-text" class="text-6xl font-bold text-emerald-700 cursor"></span> 
-      </h1>
-      <p class="text-2xl text-gray-800 mb-6 font-semibold animate-fade-in-up delay-2000">Data Science Engineer</p>
-      <p class="text-xl text-gray-800 mb-8 animate-fade-in-up delay-2200">Specializing in Machine Learning, Deep Learning & Generative AI</p>
-      <p class="text-lg text-gray-800 max-w-3xl mx-auto mb-12 animate-fade-in-up delay-2400">
-        Building scalable AI agents and end-to-end pipelines to automate complex business workflows.
-      </p>
+      <h1 class="text-5xl font-bold text-emerald-700 mb-6">Mahadev Chavan</h1>
       
-      <div class="flex justify-center gap-4 flex-wrap mb-8 animate-fade-in-up delay-2600">
-        <a href="/projects" class="bg-emerald-700 text-white px-8 py-3 rounded-lg hover:bg-emerald-800 transition duration-300 font-semibold shadow-md hover:shadow-lg">
-          View Projects
+      <div class="text-lg text-gray-800 max-w-4xl mx-auto mb-12 space-y-4 leading-relaxed">
+        <p>
+          I am a Data Science Engineer at Ksolves India Limited, specializing in Generative AI, RAG, and Agentic AI. Operating at the intersection of data science and software engineering, I build scalable intelligent systems using MCP, A2A, and Computer Vision.
+        </p>
+        <p>
+          Backed by a PG-Diploma in Big Data Analytics from CDAC, I go beyond standard analytics to leverage deep learning and modern AI architectures, transforming raw data into strategic, real-world assets.
+        </p>
+      </div>
+      
+      <div class="flex justify-center gap-4 flex-wrap mb-8">
+        <a href="https://www.linkedin.com/in/mahadev-chavan/" target="_blank" class="bg-[#0077b5] text-white px-6 py-3 rounded-lg hover:opacity-90 transition duration-300 font-semibold shadow-md hover:shadow-lg flex items-center gap-2">
+          <i class="fab fa-linkedin"></i> LinkedIn
         </a>
-        <a href="/contact" class="bg-white text-emerald-700 border-2 border-emerald-700 px-8 py-3 rounded-lg hover:bg-emerald-50 transition duration-300 font-semibold">
-          Contact Me
+        <a href="mailto:your.email@example.com" class="bg-emerald-700 text-white px-6 py-3 rounded-lg hover:bg-emerald-800 transition duration-300 font-semibold shadow-md hover:shadow-lg flex items-center gap-2">
+          <i class="fas fa-envelope"></i> Email Me
+        </a>
+        <a href="https://github.com/mahadevchavan" target="_blank" class="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition duration-300 font-semibold shadow-md hover:shadow-lg flex items-center gap-2">
+          <i class="fab fa-github"></i> GitHub
         </a>
       </div>
 
       <!-- Technologies Section (Social Proof) -->
-      <div class="mb-12 animate-fade-in-up delay-2800">
+      <div class="mb-12">
         <p class="text-center text-gray-500 mb-6 font-medium uppercase tracking-wider text-sm">Technologies I Work With</p>
         <div class="flex flex-wrap justify-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
           <i class="fab fa-python text-4xl text-emerald-700" title="Python" role="img" aria-label="Python"></i>
@@ -53,7 +59,7 @@
     </div> -->
 
     <!-- Featured Projects Section -->
-    <div class="mt-20 animate-fade-in-up delay-3000">
+    <div class="mt-20">
       <div class="flex justify-between items-end mb-8">
         <h2 class="text-3xl font-bold text-gray-800">Featured Projects</h2>
         <a href="/projects" class="text-emerald-600 hover:text-emerald-700 font-semibold">View All Projects →</a>
@@ -93,7 +99,7 @@
     </div>
 
     <!-- Professional Experience Section -->
-    <div class="mt-20 animate-fade-in-up delay-3200">
+    <div class="mt-20">
       <h2 class="text-3xl font-bold text-gray-800 mb-8">Professional Experience</h2>
       <div class="space-y-6">
         {% for job in experience %}
@@ -103,7 +109,7 @@
             <span class="text-emerald-600 font-medium text-sm">{{ job.period }}</span>
           </div>
           <p class="text-gray-600 font-medium mb-2">{{ job.company }} <span class="text-gray-400 mx-2">|</span> <span class="text-sm text-gray-500">{% if job.mode %}{{ job.mode }} • {% endif %}~ {{ job.duration }}</span></p>
-          <p class="text-gray-600">{{ job.desc }}</p>
+          <div class="text-gray-600">{{ job.desc | safe }}</div>
         </div>
         {% endfor %}
         <div class="text-right">
@@ -113,7 +119,7 @@
     </div>
 
     <!-- Skills & Expertise Grid -->
-    <div class="mt-20 grid md:grid-cols-2 gap-8 animate-fade-in-up delay-3400">
+    <div class="mt-20 grid md:grid-cols-2 gap-8">
       <!-- Technical Skills -->
       <div>
         <h2 class="text-3xl font-bold text-gray-800 mb-8">Technical Skills</h2>
@@ -164,7 +170,7 @@
     </div>
 
     <!-- CTA Section -->
-    <div class="mt-24 text-center animate-fade-in-up">
+    <div class="mt-24 text-center">
       <h2 class="text-3xl font-bold text-gray-800 mb-4">Ready to collaborate?</h2>
       <p class="text-gray-600 mb-8 max-w-2xl mx-auto">I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.</p>
       <a href="/contact" class="bg-emerald-700 text-white px-8 py-3 rounded-lg hover:bg-emerald-800 transition duration-300 font-semibold shadow-lg hover:shadow-xl inline-block">
@@ -172,26 +178,6 @@
       </a>
     </div>
 
-    <script>
-      // Typing animation for name
-      document.addEventListener('DOMContentLoaded', function() {
-        const text = "Mahadev Chavan";
-        const speed = 100;
-        let i = 0;
-        const element = document.getElementById("typewriter-text");
-        
-        function typeWriter() {
-          if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, speed);
-          }
-        }
-        
-        // Start typing after a short delay
-        setTimeout(typeWriter, 500);
-      });
-    </script>
   </div>
 </div>
 {% endblock %}

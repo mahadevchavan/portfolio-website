@@ -112,7 +112,7 @@
             <h4 class="font-bold text-gray-800">{{ job.role }}</h4>
             <p class="text-emerald-600 text-sm">{{ job.company }} | {{ job.period }}</p>
             <p class="text-gray-500 text-xs mb-1">{% if job.mode %}{{ job.mode }} • {% endif %}~ {{ job.duration }}</p>
-            <p class="text-gray-600 text-sm mt-1">{{ job.desc }}</p>
+            <div class="text-gray-600 text-sm mt-1">{{ job.desc | safe }}</div>
           </div>
           {% endfor %}
         </div>
