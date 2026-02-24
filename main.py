@@ -27,14 +27,14 @@ SMTP_PORT = int(os.getenv("SMTP_PORT"))
 SMTP_USERNAME = os.getenv("SMTP_USERNAME")  # Your email
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")  # Your Gmail App Password (set as environment variable)
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")  # Where to receive contact form emails
-RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "")
-RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY", "")
+RECAPTCHA_SITE_KEY = "6LcBo3YsAAAAAKnGDTDd0FsY-PR4CkA_lYXvDkBP"
+RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 
 # Debugging: Check if keys are loaded (printing length to avoid exposing secrets)
-if not RECAPTCHA_SITE_KEY or len(RECAPTCHA_SITE_KEY) < 10:
-    print("⚠️ WARNING: RECAPTCHA_SITE_KEY is missing or invalid!")
-else:
-    print(f"INFO: reCAPTCHA Site Key loaded (Length: {len(RECAPTCHA_SITE_KEY)})")
+# if not RECAPTCHA_SITE_KEY or len(RECAPTCHA_SITE_KEY) < 10:
+#     print("⚠️ WARNING: RECAPTCHA_SITE_KEY is missing or invalid!")
+# else:
+#     print(f"INFO: reCAPTCHA Site Key loaded (Length: {len(RECAPTCHA_SITE_KEY)})")
 
 # Serve static files (CSS, JS, images)
 app.mount("/static", StaticFiles(directory="static"), name="static")
