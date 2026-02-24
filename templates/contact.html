@@ -3,6 +3,7 @@
 
 {% block content %}
 <div class="container mx-auto px-4 py-16">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <div class="max-w-5xl mx-auto">
     <div class="animate-fade-in-up">
       <h1 class="text-4xl font-bold mb-8 text-gray-800 text-center">Let's Collaborate</h1>
@@ -92,6 +93,9 @@
           <p class="text-sm text-gray-800 mt-1">Must be at least 10 characters ({{ form_data.message|length if form_data and form_data.message else 0 }}/5000)</p>
         </div>
 
+        <!-- Google reCAPTCHA -->
+        <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+
         <button 
           type="submit" 
           id="submitBtn"
@@ -152,8 +156,8 @@
           <i class="fas fa-envelope"></i>
         </div>
         <!-- <h3 class="contact-title">Email</h3> -->
-        <a href="mailto:chmahadev321@gmail.com" class="contact-link hover:text-green-600 block">
-          chmahadev321@gmail.com
+        <a href="#" onclick="this.href='mailto:' + 'chmahadev321' + '@' + 'gmail.com'" class="contact-link hover:text-green-600 block">
+          <span class="email-mask">chmahadev321 [at] gmail [dot] com</span>
         </a>
       </div>
       
@@ -187,5 +191,15 @@
       </div>
     </div>
   </div>
+  
+  <script>
+    // Simple email unmasking on load for better UX
+    document.addEventListener('DOMContentLoaded', function() {
+      const emailElements = document.querySelectorAll('.email-mask');
+      emailElements.forEach(el => {
+        el.textContent = 'chmahadev321' + '@' + 'gmail.com';
+      });
+    });
+  </script>
 </div>
 {% endblock %}

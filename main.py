@@ -6,6 +6,9 @@ from datetime import datetime
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import urllib.request
+import urllib.parse
+import json
 import os
 import re
 from typing import Optional, Tuple
@@ -21,6 +24,8 @@ SMTP_PORT = int(os.getenv("SMTP_PORT"))
 SMTP_USERNAME = os.getenv("SMTP_USERNAME")  # Your email
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")  # Your Gmail App Password (set as environment variable)
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")  # Where to receive contact form emails
+RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "your_site_key_here")
+RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY", "your_secret_key_here")
 
 # Serve static files (CSS, JS, images)
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -401,6 +406,22 @@ def validate_contact_form(name: str, email: str, subject: str, message: str) -> 
     
     return True, None
 
+def verify_recaptcha(token: str) -> bool:
+    """Verify Google reCAPTCHA token"""
+    if not token:
+        return False
+        
+    url = "https://www.google.com/recaptcha/api/siteverify"
+    data = urllib.parse.urlencode({
+        'secret': RECAPTCHA_SECRET_KEY,
+        'response': token
+    }).encode()
+    
+    req = urllib.request.Request(url, data=data)
+    with urllib.request.urlopen(req) as response:
+        result = json.loads(response.read().decode())
+        return result.get('success', False)
+
 def send_email(name: str, email: str, subject: str, message: str) -> Tuple[bool, str]:
     """Send email using SMTP
     Returns: (success: bool, error_message: str)
@@ -466,7 +487,8 @@ async def contact_page(request: Request, success: Optional[str] = None, error: O
         "request": request,
         "year": datetime.now().year,
         "success": success,
-        "error": error
+        "error": error,
+        "recaptcha_site_key": RECAPTCHA_SITE_KEY
     })
 
 @app.post("/contact", response_class=HTMLResponse)
@@ -475,7 +497,8 @@ async def submit_contact(
     name: str = Form(...),
     email: str = Form(...),
     subject: str = Form(...),
-    message: str = Form(...)
+    message: str = Form(...),
+    recaptcha_response: str = Form(..., alias="g-recaptcha-response")
 ):
     try:
         # Validate form data using simple validation
@@ -486,6 +509,22 @@ async def submit_contact(
                 "request": request,
                 "year": datetime.now().year,
                 "error": error_message,
+                "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+                "form_data": {
+                    "name": name,
+                    "email": email,
+                    "subject": subject,
+                    "message": message
+                }
+            })
+            
+        # Verify reCAPTCHA
+        if not verify_recaptcha(recaptcha_response):
+            return templates.TemplateResponse("contact.html", {
+                "request": request,
+                "year": datetime.now().year,
+                "error": "reCAPTCHA verification failed. Please try again.",
+                "recaptcha_site_key": RECAPTCHA_SITE_KEY,
                 "form_data": {
                     "name": name,
                     "email": email,
@@ -520,6 +559,7 @@ async def submit_contact(
                 "request": request,
                 "year": datetime.now().year,
                 "error": error_message,
+                "recaptcha_site_key": RECAPTCHA_SITE_KEY,
                 "form_data": {
                     "name": name,
                     "email": email,
@@ -534,6 +574,7 @@ async def submit_contact(
             "title": "Contact - Mahadev Chavan | Data Science Engineer",
             "year": datetime.now().year,
             "error": "An unexpected error occurred. Please try again later.",
+            "recaptcha_site_key": RECAPTCHA_SITE_KEY,
             "form_data": {
                 "name": name,
                 "email": email,
