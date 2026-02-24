@@ -15,6 +15,9 @@ from typing import Optional, Tuple
 if os.getenv("VERCEL") is None:
     from dotenv import load_dotenv
     load_dotenv()
+    print("INFO: Local environment detected. Loaded .env file.")
+else:
+    print("INFO: Vercel environment detected. Using system environment variables.")
 
 app = FastAPI()
 
@@ -27,11 +30,11 @@ RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")  # Where to receive contact form 
 RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "")
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY", "")
 
-# Determine if reCAPTCHA is configured
-RECAPTCHA_ENABLED = bool(RECAPTCHA_SITE_KEY and RECAPTCHA_SECRET_KEY and RECAPTCHA_SITE_KEY != "your_site_key_here")
-
-if not RECAPTCHA_ENABLED:
-    print("⚠️  WARNING: reCAPTCHA keys are missing or default. Spam protection is DISABLED.")
+# Debugging: Check if keys are loaded (printing length to avoid exposing secrets)
+if not RECAPTCHA_SITE_KEY or len(RECAPTCHA_SITE_KEY) < 10:
+    print("⚠️ WARNING: RECAPTCHA_SITE_KEY is missing or invalid!")
+else:
+    print(f"INFO: reCAPTCHA Site Key loaded (Length: {len(RECAPTCHA_SITE_KEY)})")
 
 # Serve static files (CSS, JS, images)
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -494,8 +497,7 @@ async def contact_page(request: Request, success: Optional[str] = None, error: O
         "year": datetime.now().year,
         "success": success,
         "error": error,
-        "recaptcha_site_key": RECAPTCHA_SITE_KEY,
-        "recaptcha_enabled": RECAPTCHA_ENABLED
+        "recaptcha_site_key": RECAPTCHA_SITE_KEY
     })
 
 @app.post("/contact", response_class=HTMLResponse)
@@ -517,7 +519,6 @@ async def submit_contact(
                 "year": datetime.now().year,
                 "error": error_message,
                 "recaptcha_site_key": RECAPTCHA_SITE_KEY,
-                "recaptcha_enabled": RECAPTCHA_ENABLED,
                 "form_data": {
                     "name": name,
                     "email": email,
@@ -526,22 +527,20 @@ async def submit_contact(
                 }
             })
             
-        # Verify reCAPTCHA only if enabled
-        if RECAPTCHA_ENABLED:
-            if not recaptcha_response or not verify_recaptcha(recaptcha_response):
-                return templates.TemplateResponse("contact.html", {
-                    "request": request,
-                    "year": datetime.now().year,
-                    "error": "reCAPTCHA verification failed. Please try again.",
-                    "recaptcha_site_key": RECAPTCHA_SITE_KEY,
-                    "recaptcha_enabled": RECAPTCHA_ENABLED,
-                    "form_data": {
-                        "name": name,
-                        "email": email,
-                        "subject": subject,
-                        "message": message
-                    }
-                })
+        # Verify reCAPTCHA
+        if not recaptcha_response or not verify_recaptcha(recaptcha_response):
+            return templates.TemplateResponse("contact.html", {
+                "request": request,
+                "year": datetime.now().year,
+                "error": "reCAPTCHA verification failed. Please try again.",
+                "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+                "form_data": {
+                    "name": name,
+                    "email": email,
+                    "subject": subject,
+                    "message": message
+                }
+            })
         
         # Clean the data
         clean_name = name.strip()
@@ -570,7 +569,6 @@ async def submit_contact(
                 "year": datetime.now().year,
                 "error": error_message,
                 "recaptcha_site_key": RECAPTCHA_SITE_KEY,
-                "recaptcha_enabled": RECAPTCHA_ENABLED,
                 "form_data": {
                     "name": name,
                     "email": email,
@@ -586,7 +584,6 @@ async def submit_contact(
             "year": datetime.now().year,
             "error": "An unexpected error occurred. Please try again later.",
             "recaptcha_site_key": RECAPTCHA_SITE_KEY,
-            "recaptcha_enabled": RECAPTCHA_ENABLED,
             "form_data": {
                 "name": name,
                 "email": email,

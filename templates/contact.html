@@ -94,9 +94,7 @@
         </div>
 
         <!-- Google reCAPTCHA -->
-        {% if recaptcha_enabled %}
         <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
-        {% endif %}
 
         <button 
           type="submit" 
@@ -158,8 +156,8 @@
           <i class="fas fa-envelope"></i>
         </div>
         <!-- <h3 class="contact-title">Email</h3> -->
-        <a href="#" onclick="this.href='mailto:' + 'chmahadev321' + '@' + 'gmail.com'" class="contact-link hover:text-green-600 block">
-          <span class="email-mask">chmahadev321 [at] gmail [dot] com</span>
+        <a href="#" class="contact-link hover:text-green-600 block" onclick="handleContactClick(this, 'email', 'chmahadev321', 'gmail.com')">
+          <span class="email-mask">ch***@***.com</span>
         </a>
       </div>
       
@@ -168,8 +166,8 @@
           <i class="fas fa-phone"></i>
         </div>
         <!-- <h3 class="contact-title">Phone</h3> -->
-        <a href="tel:+918149287361" class="contact-link hover:text-blue-600 block">
-          +91 81492 87361
+        <a href="#" class="contact-link hover:text-blue-600 block" onclick="handleContactClick(this, 'phone', '8149287361', '91')">
+          <span class="phone-mask">+91 81*** ***61span>
         </a>
       </div>
       
@@ -195,13 +193,14 @@
   </div>
   
   <script>
-    // Simple email unmasking on load for better UX
-    document.addEventListener('DOMContentLoaded', function() {
-      const emailElements = document.querySelectorAll('.email-mask');
-      emailElements.forEach(el => {
-        el.textContent = 'chmahadev321' + '@' + 'gmail.com';
-      });
-    });
+    // Handle clicks for masked links
+    function handleContactClick(element, type, part1, part2) {
+      if (type === 'email') {
+        element.href = 'mailto:' + part1 + '@' + part2;
+      } else if (type === 'phone') {
+        element.href = 'tel:+' + part2 + part1;
+      }
+    }
   </script>
 </div>
 {% endblock %}
