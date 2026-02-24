@@ -24,12 +24,14 @@ SMTP_PORT = int(os.getenv("SMTP_PORT"))
 SMTP_USERNAME = os.getenv("SMTP_USERNAME")  # Your email
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")  # Your Gmail App Password (set as environment variable)
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")  # Where to receive contact form emails
-RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY")
-RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "")
+RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY", "")
 
-# Check for default keys and warn
-if RECAPTCHA_SITE_KEY == "your_site_key_here":
-    print("⚠️  WARNING: RECAPTCHA_SITE_KEY is set to default. The reCAPTCHA widget will show an error.")
+# Determine if reCAPTCHA is configured
+RECAPTCHA_ENABLED = bool(RECAPTCHA_SITE_KEY and RECAPTCHA_SECRET_KEY and RECAPTCHA_SITE_KEY != "your_site_key_here")
+
+if not RECAPTCHA_ENABLED:
+    print("⚠️  WARNING: reCAPTCHA keys are missing or default. Spam protection is DISABLED.")
 
 # Serve static files (CSS, JS, images)
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -492,7 +494,8 @@ async def contact_page(request: Request, success: Optional[str] = None, error: O
         "year": datetime.now().year,
         "success": success,
         "error": error,
-        "recaptcha_site_key": RECAPTCHA_SITE_KEY
+        "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+        "recaptcha_enabled": RECAPTCHA_ENABLED
     })
 
 @app.post("/contact", response_class=HTMLResponse)
@@ -502,7 +505,7 @@ async def submit_contact(
     email: str = Form(...),
     subject: str = Form(...),
     message: str = Form(...),
-    recaptcha_response: str = Form(..., alias="g-recaptcha-response")
+    recaptcha_response: Optional[str] = Form(None, alias="g-recaptcha-response")
 ):
     try:
         # Validate form data using simple validation
@@ -514,6 +517,7 @@ async def submit_contact(
                 "year": datetime.now().year,
                 "error": error_message,
                 "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+                "recaptcha_enabled": RECAPTCHA_ENABLED,
                 "form_data": {
                     "name": name,
                     "email": email,
@@ -522,20 +526,22 @@ async def submit_contact(
                 }
             })
             
-        # Verify reCAPTCHA
-        if not verify_recaptcha(recaptcha_response):
-            return templates.TemplateResponse("contact.html", {
-                "request": request,
-                "year": datetime.now().year,
-                "error": "reCAPTCHA verification failed. Please try again.",
-                "recaptcha_site_key": RECAPTCHA_SITE_KEY,
-                "form_data": {
-                    "name": name,
-                    "email": email,
-                    "subject": subject,
-                    "message": message
-                }
-            })
+        # Verify reCAPTCHA only if enabled
+        if RECAPTCHA_ENABLED:
+            if not recaptcha_response or not verify_recaptcha(recaptcha_response):
+                return templates.TemplateResponse("contact.html", {
+                    "request": request,
+                    "year": datetime.now().year,
+                    "error": "reCAPTCHA verification failed. Please try again.",
+                    "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+                    "recaptcha_enabled": RECAPTCHA_ENABLED,
+                    "form_data": {
+                        "name": name,
+                        "email": email,
+                        "subject": subject,
+                        "message": message
+                    }
+                })
         
         # Clean the data
         clean_name = name.strip()
@@ -564,6 +570,7 @@ async def submit_contact(
                 "year": datetime.now().year,
                 "error": error_message,
                 "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+                "recaptcha_enabled": RECAPTCHA_ENABLED,
                 "form_data": {
                     "name": name,
                     "email": email,
@@ -579,6 +586,7 @@ async def submit_contact(
             "year": datetime.now().year,
             "error": "An unexpected error occurred. Please try again later.",
             "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+            "recaptcha_enabled": RECAPTCHA_ENABLED,
             "form_data": {
                 "name": name,
                 "email": email,
