@@ -11,6 +11,10 @@ import urllib.parse
 import json
 import os
 import re
+import random
+import hashlib
+import time
+import hmac
 from typing import Optional, Tuple
 if os.getenv("VERCEL") is None:
     from dotenv import load_dotenv
@@ -27,14 +31,7 @@ SMTP_PORT = int(os.getenv("SMTP_PORT"))
 SMTP_USERNAME = os.getenv("SMTP_USERNAME")  # Your email
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")  # Your Gmail App Password (set as environment variable)
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")  # Where to receive contact form emails
-RECAPTCHA_SITE_KEY = "6LcBo3YsAAAAAKnGDTDd0FsY-PR4CkA_lYXvDkBP"
-RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
-
-# Debugging: Check if keys are loaded (printing length to avoid exposing secrets)
-# if not RECAPTCHA_SITE_KEY or len(RECAPTCHA_SITE_KEY) < 10:
-#     print("⚠️ WARNING: RECAPTCHA_SITE_KEY is missing or invalid!")
-# else:
-#     print(f"INFO: reCAPTCHA Site Key loaded (Length: {len(RECAPTCHA_SITE_KEY)})")
+SECRET_KEY = os.getenv("SECRET_KEY", "change-this-to-a-secure-random-string-in-production")
 
 # Serve static files (CSS, JS, images)
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -415,21 +412,36 @@ def validate_contact_form(name: str, email: str, subject: str, message: str) -> 
     
     return True, None
 
-def verify_recaptcha(token: str) -> bool:
-    """Verify Google reCAPTCHA token"""
-    if not token:
-        return False
-        
-    url = "https://www.google.com/recaptcha/api/siteverify"
-    data = urllib.parse.urlencode({
-        'secret': RECAPTCHA_SECRET_KEY,
-        'response': token
-    }).encode()
+def generate_security_token() -> str:
+    """Generate a signed timestamp token for the form"""
+    timestamp = str(int(time.time()))
+    # Create a signature of the timestamp using the secret key
+    signature = hmac.new(SECRET_KEY.encode(), timestamp.encode(), hashlib.sha256).hexdigest()
+    return f"{timestamp}:{signature}"
+
+def verify_security_token(token: str, honeypot: Optional[str]) -> Tuple[bool, str]:
+    """Verify honeypot is empty and form wasn't submitted too quickly"""
+    # 1. Check Honeypot (Must be empty)
+    if honeypot:
+        return False, "Spam detected (honeypot)."
     
-    req = urllib.request.Request(url, data=data)
-    with urllib.request.urlopen(req) as response:
-        result = json.loads(response.read().decode())
-        return result.get('success', False)
+    try:
+        timestamp_str, signature = token.split(':')
+        timestamp = int(timestamp_str)
+        
+        # 2. Verify Signature
+        expected_signature = hmac.new(SECRET_KEY.encode(), timestamp_str.encode(), hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(signature, expected_signature):
+            return False, "Invalid security token."
+            
+        # 3. Check Time (Must take at least 3 seconds to fill form)
+        current_time = int(time.time())
+        if current_time - timestamp < 3:
+            return False, "Form submitted too quickly. Please wait a moment."
+            
+        return True, None
+    except (ValueError, AttributeError):
+        return False, "Invalid token format."
 
 def send_email(name: str, email: str, subject: str, message: str) -> Tuple[bool, str]:
     """Send email using SMTP
@@ -492,12 +504,13 @@ You can reply directly to this email to respond to {name} at {email}
 
 @app.get("/contact", response_class=HTMLResponse)
 async def contact_page(request: Request, success: Optional[str] = None, error: Optional[str] = None):
+    form_token = generate_security_token()
     return templates.TemplateResponse("contact.html", {
         "request": request,
         "year": datetime.now().year,
         "success": success,
         "error": error,
-        "recaptcha_site_key": RECAPTCHA_SITE_KEY
+        "form_token": form_token
     })
 
 @app.post("/contact", response_class=HTMLResponse)
@@ -507,18 +520,20 @@ async def submit_contact(
     email: str = Form(...),
     subject: str = Form(...),
     message: str = Form(...),
-    recaptcha_response: Optional[str] = Form(None, alias="g-recaptcha-response")
+    website_hp: Optional[str] = Form(None), # Honeypot field
+    form_token: str = Form(...)
 ):
     try:
         # Validate form data using simple validation
         is_valid, error_message = validate_contact_form(name, email, subject, message)
         
         if not is_valid:
+            new_token = generate_security_token()
             return templates.TemplateResponse("contact.html", {
                 "request": request,
                 "year": datetime.now().year,
                 "error": error_message,
-                "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+                "form_token": new_token,
                 "form_data": {
                     "name": name,
                     "email": email,
@@ -527,13 +542,15 @@ async def submit_contact(
                 }
             })
             
-        # Verify reCAPTCHA
-        if not recaptcha_response or not verify_recaptcha(recaptcha_response):
+        # Verify Invisible Security (Honeypot + Time)
+        is_secure, security_msg = verify_security_token(form_token, website_hp)
+        if not is_secure:
+            new_token = generate_security_token()
             return templates.TemplateResponse("contact.html", {
                 "request": request,
                 "year": datetime.now().year,
-                "error": "reCAPTCHA verification failed. Please try again.",
-                "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+                "error": security_msg,
+                "form_token": new_token,
                 "form_data": {
                     "name": name,
                     "email": email,
@@ -563,12 +580,13 @@ async def submit_contact(
             )
         else:
             # Show specific error message
+            new_token = generate_security_token()
             error_message = email_error if email_error else "Sorry, there was an error sending your message. Please try again later or contact me directly via email."
             return templates.TemplateResponse("contact.html", {
                 "request": request,
                 "year": datetime.now().year,
                 "error": error_message,
-                "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+                "form_token": new_token,
                 "form_data": {
                     "name": name,
                     "email": email,
@@ -578,12 +596,13 @@ async def submit_contact(
             })
             
     except Exception as e:
+        new_token = generate_security_token()
         return templates.TemplateResponse("contact.html", {
             "request": request,
             "title": "Contact - Mahadev Chavan | Data Science Engineer",
             "year": datetime.now().year,
             "error": "An unexpected error occurred. Please try again later.",
-            "recaptcha_site_key": RECAPTCHA_SITE_KEY,
+            "form_token": new_token,
             "form_data": {
                 "name": name,
                 "email": email,

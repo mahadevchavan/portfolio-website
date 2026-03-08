@@ -3,7 +3,6 @@
 
 {% block content %}
 <div class="container mx-auto px-4 py-16">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <div class="max-w-5xl mx-auto">
     <div class="animate-fade-in-up">
       <h1 class="text-4xl font-bold mb-8 text-gray-800 text-center">Let's Collaborate</h1>
@@ -93,8 +92,14 @@
           <p class="text-sm text-gray-800 mt-1">Must be at least 10 characters ({{ form_data.message|length if form_data and form_data.message else 0 }}/5000)</p>
         </div>
 
-        <!-- Google reCAPTCHA -->
-        <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
+        <!-- Invisible Security Fields -->
+        <!-- Honeypot: Hidden from humans, visible to bots -->
+        <div class="hidden">
+            <label for="website_hp">Website</label>
+            <input type="text" id="website_hp" name="website_hp" tabindex="-1" autocomplete="off">
+        </div>
+        <!-- Time/Signature Token -->
+        <input type="hidden" name="form_token" value="{{ form_token }}">
 
         <button 
           type="submit" 
