@@ -3,66 +3,6 @@
 {% set active_page = "about" %}
 
 {% block content %}
-{% set skills = [
-  {
-    'title': 'Programming Languages',
-    'items': [
-      {'name': 'Python', 'class': 'bg-emerald-100 text-emerald-700'},
-      {'name': 'R', 'class': 'bg-emerald-100 text-emerald-700'},
-      {'name': 'SQL', 'class': 'bg-emerald-100 text-emerald-700'},
-      {'name': 'Scala', 'class': 'bg-emerald-100 text-emerald-700'}
-    ]
-  },
-  {
-    'title': 'ML/DL Frameworks',
-    'items': [
-      {'name': 'TensorFlow', 'class': 'bg-sky-100 text-sky-700'},
-      {'name': 'PyTorch', 'class': 'bg-sky-100 text-sky-700'},
-      {'name': 'Keras', 'class': 'bg-sky-100 text-sky-700'},
-      {'name': 'Scikit-learn', 'class': 'bg-sky-100 text-sky-700'}
-    ]
-  },
-  {
-    'title': 'Generative AI',
-    'items': [
-      {'name': 'Transformers', 'class': 'bg-violet-100 text-violet-700'},
-      {'name': 'Hugging Face', 'class': 'bg-violet-100 text-violet-700'},
-      {'name': 'LangChain', 'class': 'bg-violet-100 text-violet-700'},
-      {'name': 'OpenAI API', 'class': 'bg-violet-100 text-violet-700'}
-    ]
-  },
-  {
-    'title': 'Tools & Technologies',
-    'items': [
-      {'name': 'Docker', 'class': 'bg-emerald-100 text-emerald-700'},
-      {'name': 'Kubernetes', 'class': 'bg-emerald-100 text-emerald-700'},
-      {'name': 'MLflow', 'class': 'bg-sky-100 text-sky-700'},
-      {'name': 'Airflow', 'class': 'bg-sky-100 text-sky-700'},
-      {'name': 'AWS/GCP', 'class': 'bg-violet-100 text-violet-700'}
-    ]
-  }
-] %}
-
-{% set expertise = [
-  'Neural Networks & Deep Learning Architectures',
-  'Large Language Models (LLMs) & Fine-tuning',
-  'Computer Vision & Image Generation',
-  'Natural Language Processing (NLP)',
-  'Model Training, Optimization & MLOps',
-  'Production ML System Design'
-] %}
-
-{% set education = [
-  {'degree': 'Diploma of Education, Artificial Intelligence and Machine Learning', 'school': 'University of Hyderabad', 'year': '2021 - 2022'},
-  {'degree': 'Master of Science in Computer Science', 'school': 'Savitribai Phule Pune University', 'year': '2018 - 2020'},
-  {'degree': 'Bachelor of Science in Computer Science', 'school': 'Savitribai Phule Pune University', 'year': '2015 - 2018'}
-] %}
-
-{% set certifications = [
-  {'name': 'Generative AI with Large Language Models', 'issuer': 'Coursera', 'date': 'August 28, 2025', 'meta': 'Credential ID • 2PT7EW8G5857', 'color': 'emerald'},
-  {'name': 'Fundamental course in the AWS Machine Learning Scholarship!', 'issuer': 'Udacity', 'date': 'Aug 2020', 'meta': 'Issue Date • Aug 2020', 'color': 'sky'},
-  {'name': 'Microsoft Technology Associate: Windows Server Administration Fundamentals (MTA)', 'issuer': 'Microsoft', 'date': 'Jun 2019', 'meta': 'Issue Date • Jun 2019', 'color': 'violet'}
-] %}
 
 <div class="container mx-auto px-4 py-16">
   <div class="max-w-5xl mx-auto">
@@ -153,9 +93,9 @@
       <h3 class="text-2xl font-bold text-gray-800 mb-4">Certifications</h3>
       <div class="space-y-4">
         {% for cert in certifications %}
-        <div class="border-l-4 border-{{ cert.color }}-600 pl-4 py-2 transition-all duration-300 hover:bg-{{ cert.color }}-50 hover:pl-6 hover:shadow-sm rounded-r-lg">
+        <div class="border-l-4 {{ cert.border_class }} pl-4 py-2 transition-all duration-300 {{ cert.bg_hover }} hover:pl-6 hover:shadow-sm rounded-r-lg">
           <h4 class="font-bold text-gray-800">{{ cert.name }}</h4>
-          <p class="text-{{ cert.color }}-600 text-sm">{{ cert.issuer }}</p>
+          <p class="{{ cert.text_class }} text-sm">{{ cert.issuer }}</p>
           <p class="text-gray-500 text-xs mt-1">{{ cert.meta|safe }}</p>
         </div>
         {% endfor %}

@@ -156,10 +156,10 @@
           <h2 class="text-3xl font-bold text-gray-800 mb-8">Certifications</h2>
           <div class="space-y-3">
             {% for cert in certifications %}
-            <div class="bg-white rounded-lg shadow p-4 border-l-4 border-{{ cert.color }}-600">
+            <div class="bg-white rounded-lg shadow p-4 border-l-4 {{ cert.border_class }}">
               <h4 class="font-bold text-gray-800 text-sm">{{ cert.name }}</h4>
               <div class="flex justify-between items-center mt-1">
-                <p class="text-{{ cert.color }}-600 text-xs">{{ cert.issuer }}</p>
+                <p class="{{ cert.text_class }} text-xs">{{ cert.issuer }}</p>
                 <p class="text-gray-400 text-xs">{{ cert.date }}</p>
               </div>
             </div>
