@@ -15,7 +15,12 @@ import random
 import hashlib
 import time
 import hmac
+import secrets
 from typing import Optional, Tuple
+
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 from portfolio_data import get_projects, get_static_about_data, get_experience
 
@@ -26,7 +31,18 @@ if os.getenv("VERCEL") is None:
 else:
     print("INFO: Vercel environment detected. Using system environment variables.")
 
+limiter = Limiter(key_func=get_remote_address)
 app = FastAPI()
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    return response
 
 # Email configuration - Set these as environment variables or update directly
 SMTP_SERVER = os.getenv("SMTP_SERVER")
@@ -34,7 +50,7 @@ SMTP_PORT = int(os.getenv("SMTP_PORT"))
 SMTP_USERNAME = os.getenv("SMTP_USERNAME")  # Your email
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")  # Your Gmail App Password (set as environment variable)
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")  # Where to receive contact form emails
-SECRET_KEY = os.getenv("SECRET_KEY", "change-this-to-a-secure-random-string-in-production")
+SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_hex(32))
 
 # Serve static files (CSS, JS, images)
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -97,42 +113,6 @@ def is_valid_email(email: str) -> bool:
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     return re.match(pattern, email) is not None
 
-# Simple validation function
-def validate_contact_form(name: str, email: str, subject: str, message: str) -> Tuple[bool, Optional[str]]:
-    """
-    Validate contact form data
-    Returns: (is_valid, error_message)
-    """
-    # Validate name
-    name = name.strip() if name else ""
-    if len(name) < 2:
-        return False, "Name must be at least 2 characters long"
-    if len(name) > 100:
-        return False, "Name must be less than 100 characters"
-    
-    # Validate email
-    email = email.strip() if email else ""
-    if not email:
-        return False, "Email is required"
-    if not is_valid_email(email):
-        return False, "Please enter a valid email address"
-    
-    # Validate subject
-    subject = subject.strip() if subject else ""
-    if len(subject) < 3:
-        return False, "Subject must be at least 3 characters long"
-    if len(subject) > 200:
-        return False, "Subject must be less than 200 characters"
-    
-    # Validate message
-    message = message.strip() if message else ""
-    if len(message) < 10:
-        return False, "Message must be at least 10 characters long"
-    if len(message) > 5000:
-        return False, "Message must be less than 5000 characters"
-    
-    return True, None
-
 def generate_security_token() -> str:
     """Generate a signed timestamp token for the form"""
     timestamp = str(int(time.time()))
@@ -159,6 +139,10 @@ def verify_security_token(token: str, honeypot: Optional[str]) -> Tuple[bool, st
         current_time = int(time.time())
         if current_time - timestamp < 3:
             return False, "Form submitted too quickly. Please wait a moment."
+            
+        # 4. Enforce Token Expiration (Expire after 1 hour)
+        if current_time - timestamp > 3600:
+            return False, "Security token expired. Please refresh the page."
             
         return True, None
     except (ValueError, AttributeError):
@@ -235,25 +219,26 @@ async def contact_page(request: Request, success: Optional[str] = None, error: O
     })
 
 @app.post("/contact", response_class=HTMLResponse)
+@limiter.limit("3/minute")
 async def submit_contact(
     request: Request,
-    name: str = Form(...),
+    name: str = Form(..., min_length=2, max_length=100),
     email: str = Form(...),
-    subject: str = Form(...),
-    message: str = Form(...),
+    subject: str = Form(..., min_length=3, max_length=200),
+    message: str = Form(..., min_length=10, max_length=5000),
     website_hp: Optional[str] = Form(None), # Honeypot field
     form_token: str = Form(...)
 ):
     try:
-        # Validate form data using simple validation
-        is_valid, error_message = validate_contact_form(name, email, subject, message)
+        # Validate email manually because it is a regex based check
+        is_valid = is_valid_email(email.strip()) if email else False
         
         if not is_valid:
             new_token = generate_security_token()
             return templates.TemplateResponse("contact.html", {
                 "request": request,
                 "year": datetime.now().year,
-                "error": error_message,
+                "error": "Please enter a valid email address.",
                 "form_token": new_token,
                 "form_data": {
                     "name": name,
