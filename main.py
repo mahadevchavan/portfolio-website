@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request, Form, HTTPException
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from datetime import datetime
@@ -90,6 +90,10 @@ async def about_page(request: Request):
         "education": education,
         "certifications": certifications
     })
+
+@app.get("/sitemap.xml", response_class=FileResponse)
+async def sitemap():
+    return FileResponse("static/sitemap.xml", media_type="application/xml")
 
 @app.get("/projects", response_class=HTMLResponse)
 async def projects_page(request: Request):
